@@ -1,0 +1,21 @@
+package index;
+
+import java.util.List;
+import java.util.Scanner;
+
+import database.DAO.BoardDAO;
+import database.Entity.BoardEntity;
+
+public class MainApplication {
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		String path = scanner.nextLine();
+	}
+
+}
+
+
+
+
+

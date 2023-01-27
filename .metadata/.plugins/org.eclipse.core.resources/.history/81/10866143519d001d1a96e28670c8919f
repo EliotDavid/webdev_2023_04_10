@@ -1,0 +1,14 @@
+package service;
+
+import database.DAO.BoardDAO;
+import dto.InsertBoardDTO;
+
+public class BoardService {
+	
+	private BoardDAO boardDao = new BoardDAO(); 
+
+	public int postBoard(InsertBoardDTO insertBoardDto) {
+		return boardDao.insert(insertBoardDto);
+	}
+	
+}
