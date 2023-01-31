@@ -6,60 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Example01</title>
-
-    <style>
-        body {
-            margin: 0;
-        }
-
-        a {
-            /* 태그의 기본 텍스트 꾸밈을 제거 */
-            text-decoration: none;
-            color: black;
-        }
-
-        #container {
-            margin: 0 auto;
-            min-width: 460px;
-        }
-
-        /* # : id의 이름을 지정 */
-        #logo {
-            /* 가로 가운데 정렬 */
-            margin: 0 auto;
-
-            display: block;
-            width: 240px;
-            height: 44px;
-            /* 배경 이미지 지정 */
-            background-image: url(https://static.nid.naver.com/images/ui/join/m_naver_logo_20191126.png);
-            /* 배경이미지를 반복해서 보여줄 것인지 */
-            background-repeat: no-repeat;
-            background-size: 240px;
-            font-size: 0;
-        }
-
-        /* . : class의 이름을 지정 */
-        .input-style {
-            width: 430px;
-            height: 29px;
-            padding-left: 14px;
-            padding-right: 14px;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            border: 1px solid #dadada;
-        }
-
-        .input-label {
-            margin-top: 19px;
-            margin-bottom: 8px;
-            /* 글자의 크기 */
-            font-size: 14px;
-            /* 글자의 굵기 */
-            font-weight: 700;
-        }
-    </style>
-
+    <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
@@ -71,7 +18,7 @@
         <!-- 가운데 레이아웃 -->
         <div>
             <!-- 로고 레이아웃 -->
-            <div>
+            <div id="logo-container">
                 <a id="logo" href="https://naver.com">
                     NAVER
                 </a>
@@ -79,44 +26,44 @@
             <!-- 컨테이너 레이아웃 -->
             <div id="container">
                 <!-- 아이디 레이아웃 -->
-                <div>
+                <div class="content">
                     <div class="input-label">아이디</div>
-                    <div>
+                    <div class="inline">
                         <input class="input-style" type="text" />
                     </div>
                 </div>
                 <!-- 비밀번호 레이아웃 -->
-                <div>
+                <div class="content">
                     <div class="input-label">비밀번호</div>
-                    <div>
+                    <div class="inline">
                         <input class="input-style" type="password" />
                     </div>
                 </div>
                 <!-- 비밀번호 확인 레이아웃 -->
-                <div>
+                <div class="content">
                     <div class="input-label">비밀번호 확인</div>
-                    <div>
+                    <div class="inline">
                         <input class="input-style" type="password" />
                     </div>
                 </div>
                 <!-- 이름 레이아웃 -->
-                <div>
+                <div class="content">
                     <div class="input-label">이름</div>
-                    <div>
+                    <div class="inline">
                         <input class="input-style" type="text" />
                     </div>
                 </div>
                 <!-- 생년월일 레이아웃 -->
-                <div>
+                <div class="content">
                     <div class="input-label">생년월일</div>
-                    <div>
+                    <div class="flex">
                         <!-- style의 display 요소를 inline으로 적용해서 inline 형식으로 변경 -->
-                        <div style="display: inline;">
-                            <input type="number" placeholder="년 (4자리)" />
+                        <div class="flex-1">
+                            <input class="input-middle-style" type="number" placeholder="년 (4자리)" />
                         </div>
-                        <div style="display: inline;">
+                        <div class="flex-1">
                             <!-- select -->
-                            <select>
+                            <select class="input-middle-style">
                                 <option>월</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -132,15 +79,15 @@
                                 <option>12</option>
                             </select>
                         </div>
-                        <div style="display: inline;">
-                            <input type="number" placeholder="일" />
+                        <div class="flex-1">
+                            <input class="input-middle-style" type="number" placeholder="일" />
                         </div>
                     </div>
                 </div>
                 <!-- 버튼 레이아웃 -->
-                <div>
-                    <div>
-                        <button>가입하기</button>
+                <div class="content">
+                    <div class="inline">
+                        <button class="join-button">가입하기</button>
                     </div>
                 </div>
             </div>
