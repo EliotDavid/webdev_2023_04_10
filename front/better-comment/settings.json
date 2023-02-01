@@ -17,8 +17,6 @@
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "better-comments.tags": [
-    
-
         {
             "tag": "!",
             "color": "#FF2D00",
