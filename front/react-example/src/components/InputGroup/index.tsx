@@ -2,9 +2,9 @@
 //? ES7 + React/Redux/React-native Snippets 확장 설치
 //? .tsx 파일 내부에서 'rfc'로 함수형 컴포넌트를 자동 생성
 
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 
-import NAEE, { NAME, PHONE } from "src/constants";
+import AGE, { NAME, PHONE } from "src/constants";
 
 //# 함수형 컴포넌트에서 매개변수를 받는 방법
 //? 하나의 인터페이스를 선언하고 해당 인터페이스의 객체로 받음
@@ -27,8 +27,6 @@ export default function InputGroup(props: Props) {
   //? const [상태명(변수명), 상태변경메서드(set메서드)] = useState<타입>(초깃값);
   const [number, setNumber] = useState<number>(0);
   const [inputValue, setInputValue] = useState<string>('');
-
-  useEffect(() => {}, []);
 
   return (
     <div className="content">
