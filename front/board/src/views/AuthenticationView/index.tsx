@@ -6,8 +6,14 @@ import { Box, Card, Grid, TextField, Typography, FormControl, InputLabel, Input,
 import ContentPasteTwoToneIcon from '@mui/icons-material/ContentPasteTwoTone';
 import LoginCardView from './LoginCardView';
 
+//# 컴포넌트 return 안에서 논리연산자와 삼항연산자를 조건문처럼 사용 할때 
+//? 논리 연산자 (&&) : if문만 쓸 때
+//? 삼항 연산자 (조건 ? 참 : 거짓) : if - else / if - else if - else 쓸 때
 
 export default function AuthenticationView() {
+
+    const [loginView, setLoginView] = useState<boolean>(true);
+
   return (
     <Box sx={{pr: "120px", pl: "120px"}}>
         <Grid container spacing={2}>
@@ -20,7 +26,7 @@ export default function AuthenticationView() {
             </Grid>
             <Grid item lg={5} sm={12}>
                 <Card sx={{height: '630px', mt: '100px', mb: '80px', pt: '50px', pb: '30px', pl: '50px', pr: '50px'}}>
-                    <LoginCardView />
+                    {loginView ? (<LoginCardView setLoginView={setLoginView} />) : (<></>)}
                 </Card>
             </Grid>
         </Grid>
