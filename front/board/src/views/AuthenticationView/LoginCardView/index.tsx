@@ -1,9 +1,12 @@
-import React from 'react'
+import { useState } from 'react'
 import { Box, TextField, Typography, FormControl, InputLabel, Input, InputAdornment, IconButton, Button } from '@mui/material';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 
 export default function LoginCardView() {
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   return (
     <Box display='flex' sx={{height: '100%', flexDirection: 'column', justifyContent: 'space-between'}}>
     <Box>
