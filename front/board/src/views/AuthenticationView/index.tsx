@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { Box, Card, Grid, TextField, Typography, FormControl, InputLabel, Input, InputAdornment, IconButton, Button } from '@mui/material';
 import ContentPasteTwoToneIcon from '@mui/icons-material/ContentPasteTwoTone';
 import LoginCardView from './LoginCardView';
+import SignUpCardView from './SignUpCardView';
 
 //# 컴포넌트 return 안에서 논리연산자와 삼항연산자를 조건문처럼 사용 할때 
 //? 논리 연산자 (&&) : if문만 쓸 때
@@ -26,7 +27,7 @@ export default function AuthenticationView() {
             </Grid>
             <Grid item lg={5} sm={12}>
                 <Card sx={{height: '630px', mt: '100px', mb: '80px', pt: '50px', pb: '30px', pl: '50px', pr: '50px'}}>
-                    {loginView ? (<LoginCardView setLoginView={setLoginView} />) : (<></>)}
+                    {loginView ? (<LoginCardView setLoginView={setLoginView} />) : (<SignUpCardView setLoginView={setLoginView} />)}
                 </Card>
             </Grid>
         </Grid>
