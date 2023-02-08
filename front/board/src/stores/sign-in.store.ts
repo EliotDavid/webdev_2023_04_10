@@ -7,17 +7,50 @@
 //^ zustand에서 create 요소를 import 
 import { create } from "zustand";
 
+//# Typescript에서 함수의 타입을 지정하는 방법
+//? (매개변수명: 매개변수타입) => 반환타입
+interface ISignInStore {
+    email: string;
+    password: string;
+    passwordCheck: string;
+    nickName: string;
+    telNumber: string;
+    address: string;
+    addressDetail: string;
+    setEmail: (str: string) => void;
+    setPassword: (str: string) => void;
+    setPasswordCheck: (str: string) => void;
+    setNickName: (str: string) => void;
+    setTelNumber: (str: string) => void
+    setAddress: (str: string) => void;
+    setAddressDetail: (str: string) => void;
+}
+
 //^ create 메서드를 사용해서 store를 생성
-const useStore = create((set) => ({
-    signInData: {},
-    setSignInData: (signInData) => set((state) => ({...state, signInData})),
+const useStore = create<ISignInStore>((set) => ({
+    email: '',
+    password: '',
+    passwordCheck: '',
+    nickName: '',
+    telNumber: '',
+    address: '',
+    addressDetail: '',
+    setEmail: (email) => set((state) => ({...state, email})),
+    setPassword: (password) => set((state) => ({...state, password})),
+    setPasswordCheck: (passwordCheck) => set((state) => ({...state, passwordCheck})),
+    setNickName: (nickName) => set((state) => ({...state, nickName})),
+    setTelNumber: (telNumber) => set((state) => ({...state, telNumber})),
+    setAddress: (address) => set((state) => ({...state, address})),
+    setAddressDetail: (addressDetail) => set((state) => ({...state, addressDetail})),
 }))
+
+export default useStore;
 
 //# 일반적인 상태를 선언하는 코드
 //? const [상태명, set메서드(상태를 변경하는 메서드)] = useState<데이터타입>(초기화값);
 
 //# Zustand를 사용해서 상태를 선언한느 코드
-//? const useStore = create((set) => ({
+//? const useStore = create<데이터타입>((set) => ({
 //?     상태명1: 초기화값,
 //?     상태명2: 초기화값,
 //?     상태명3: 초기화값,
@@ -50,3 +83,22 @@ const mainObj = {
 
 const { a, ...subObj } = mainObj;
 //? subObj = { b: 1, c: 2, d: 3 };
+
+const setMainObjA = (a: number) => {
+    // mainObj.a = a;
+    const modifiedObj = {...mainObj, a};
+    return modifiedObj;
+}
+const setMainObjB = (b: number) => {
+    // mainObj.a = a;
+    const modifiedObj = {...mainObj, b};
+    return modifiedObj;
+}
+
+const tmpObj = setMainObjA(10);
+// {
+//     a: 10,
+//     b: 1,
+//     c: 2,
+//     d: 3,
+// }
