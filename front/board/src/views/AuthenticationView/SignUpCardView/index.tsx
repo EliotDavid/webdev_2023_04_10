@@ -79,7 +79,6 @@ function SecondPage() {
     <Box>
       <TextField sx={{mt: '40px'}} fullWidth label="닉네임*" variant="standard" value={nickName} onChange={(event) => setNickName(event.target.value)} />
       <TextField sx={{mt: '40px'}} fullWidth label="휴대폰 번호*" variant="standard" value={telNumber} onChange={(event) => setTelNumber(event.target.value)} />
-      
       <FormControl fullWidth variant="standard" sx={{mt: '40px'}}>
         <InputLabel>주소*</InputLabel>
         <Input type="text" endAdornment={
@@ -93,7 +92,6 @@ function SecondPage() {
         onChange={(event) => setAddress(event.target.value)}
         />
       </FormControl>
-      
       <TextField sx={{mt: '40px'}} fullWidth label="상세 주소*" variant="standard" value={addressDetail} onChange={(event) => setAddressDetail(event.target.value)} />
     </Box>
   );
@@ -104,9 +102,10 @@ interface Props {
 }
 
 export default function SignUpCardView({ setLoginView }: Props) {
-  const [page, setPage] = useState<number>(1);
 
+  const [page, setPage] = useState<number>(1);
   const { email, password, passwordCheck } = useSignUpStore();
+  const { nickName, telNumber, address, addressDetail } = useSignUpStore();
 
   const onNextButtonHandler = () => {
     //? 해당 문자열 변수가 빈값인지 확인
@@ -122,6 +121,31 @@ export default function SignUpCardView({ setLoginView }: Props) {
     }
     setPage(2);
   };
+
+  const onSignUpHandler = () => {
+    if (!email || !password || !passwordCheck) {
+      alert('모든 값을 입력하세요.');
+      setPage(1);
+      return;
+    }
+    if (!nickName || !telNumber || !address || !addressDetail) {
+      alert('모든 값을 입력하세요.');
+      setPage(2);
+      return;
+    }
+    if (password !== passwordCheck) {
+      alert('비밀번호가 서로 다릅니다.');
+      setPage(1);
+      return;
+    }
+
+    alert('회원가입 완료!');
+    
+    const data = { email, password, nickName, telNumber, address, addressDetail };
+
+    console.log(data);
+
+  }
 
   return (
     <Box
@@ -161,7 +185,7 @@ export default function SignUpCardView({ setLoginView }: Props) {
             variant="contained"
             size="large"
             sx={{ mb: "20px" }}
-            onClick={() => setPage(1)}
+            onClick={onSignUpHandler}
           >
             회원가입
           </Button>
