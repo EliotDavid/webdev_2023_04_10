@@ -9,7 +9,7 @@ import { create } from "zustand";
 
 //# Typescript에서 함수의 타입을 지정하는 방법
 //? (매개변수명: 매개변수타입) => 반환타입
-interface ISignInStore {
+interface ISignUpStore {
     email: string;
     password: string;
     passwordCheck: string;
@@ -27,7 +27,7 @@ interface ISignInStore {
 }
 
 //^ create 메서드를 사용해서 store를 생성
-const useStore = create<ISignInStore>((set) => ({
+const useStore = create<ISignUpStore>((set) => ({
     email: '',
     password: '',
     passwordCheck: '',

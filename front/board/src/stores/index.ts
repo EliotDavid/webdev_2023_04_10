@@ -1,4 +1,4 @@
 //? 스토어 관리
-import useSignInStore from './sign-in.store';
+import useSignUpStore from './sign-up.store';
 
-export { useSignInStore };
+export { useSignUpStore };

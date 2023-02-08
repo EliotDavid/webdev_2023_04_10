@@ -13,7 +13,12 @@ import {
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 
+import { useSignUpStore } from 'src/stores';
+
 function FirstPage() {
+
+  const { setEmail, setPassword, setPasswordCheck } = useSignUpStore();
+
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showPasswordCheck, setShowPasswordCheck] = useState<boolean>(false);
 
@@ -24,6 +29,7 @@ function FirstPage() {
         fullWidth
         label="이메일 주소*"
         variant="standard"
+        onChange={(event) => setEmail(event.target.value)}
       />
       <FormControl fullWidth variant="standard" sx={{ mt: "40px" }}>
         <InputLabel>비밀번호*</InputLabel>
@@ -36,6 +42,7 @@ function FirstPage() {
               </IconButton>
             </InputAdornment>
           }
+          onChange={(event) => setPassword(event.target.value)}
         />
       </FormControl>
       <FormControl fullWidth variant="standard" sx={{ mt: "40px" }}>
@@ -51,6 +58,7 @@ function FirstPage() {
               </IconButton>
             </InputAdornment>
           }
+          onChange={(event) => setPasswordCheck(event.target.value)}
         />
       </FormControl>
     </Box>
@@ -67,6 +75,8 @@ interface Props {
 
 export default function SignUpCardView({ setLoginView }: Props) {
   const [page, setPage] = useState<number>(1);
+
+  const {  } = useSignUpStore();
 
   const onNextButtonHandler = () => {
     //todo: 이메일 / 비밀번호 / 비밀번호 확인 검증
