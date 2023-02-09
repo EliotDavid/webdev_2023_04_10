@@ -109,6 +109,71 @@ export default function Es6Typescript() {
         console.log(item);
     }
 
+    //# 7. interface 
+    //? TS -> interface를 데이터 타입형태로 사용
+    interface IExample {
+        a: string;
+        b: number;
+        c: boolean;
+    }
+    const object1: IExample = { a: 'a', b: 1, c: true };
+
+    //! 객체형의 데이터타입을 지정할 때는 3가지 방법을 쓸 수 있음
+    //^ 1. interface 사용
+    //^ 2. class 사용
+    class Example {
+        a: string;
+        b: number;
+        c: boolean;
+
+        constructor(a: string, b: number, c: boolean) {
+            this.a = a;
+            this.b = b;
+            this.c = c;
+        }
+    }
+    const object2: IExample = new Example('a', 1, true);
+    const object3: Example =  { a: 'a', b: 1, c: true };
+    //^ 3. type 사용
+    type TExample = {
+        d: string,
+        e: number,
+        f: boolean
+    }
+    const object4: TExample = { d: 'a', e: 1, f: true };
+    // const object5: TExample = new Example('a', 1, true);
+
+    //# 8. 삼항 연산자와 Spread 연산자, 비구조화 할당
+    //? 삼항 연산자
+    //? 조건 ? 참일때 결과값 : 거짓일때 결과값
+    const result = num > 0 ? '양수' : '양수가 아님';
+    console.log(result);
+
+    //? 비구조화 할당
+    //? object 타입(객체와 배열)의 요소를 하나씩 직접 꺼내서 사용할 수 있도록 하는 것 
+    // const { a, b, c } = object1;
+    // console.log(a, b, c);
+    // const [ a1, b1, c1 ] = numberArray;
+    // console.log(a1, b1, c1);
+
+    //? Spread 연산자
+    //? ...객체
+    //? 1. 비구조화 할당에 쓰일 때는 직접 뽑은 요소를 제외한 나머지 요소를 하나의 묶음으로 묶어줌
+    const { a, ...spread1 } = object1;
+    console.log(a);
+    console.log(spread1);
+
+    //? 2. 새로운 객체를 생성할 때 가지고 있는 객체를 분해해서 요소로 추가
+    const example1 = { a1: 'a', object1 };
+    console.log(example1);
+    const example2 = { a1: 'a', ...object1 };
+    console.log(example2);
+
+    let state = { email: "email", password: "password", passwordCheck: "passwordCheck" };
+    state = { ...state, email: "이메일" };
+    // state = { email: "email", password: "password", passwordCheck: "passwordCheck", email: "이메일" };
+    console.log(state);
+
   return (
     <div>index</div>
   )
