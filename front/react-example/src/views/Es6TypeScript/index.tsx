@@ -8,7 +8,7 @@ export default function Es6Typescript() {
     let integer;
     let integer2: number;
     
-    //# 2. 상수 선언
+    //# 2. 상수 선언 
     //? 상수를 선언하는 방법
     //? ES6 -> const 상수명 = 초기값;
     //? TS  -> const 상수명: 데이터타입 = 초기값;
@@ -20,7 +20,7 @@ export default function Es6Typescript() {
     //? typeof(변수) -> 해당 변수의 타입을 문자열로 나타내줌 
     console.log(typeof(INTEGER));
 
-    //# 3. 데이터 타입
+    //# 3. 데이터 타입 
     //? TS -> string, number, boolean, null, undefined, any, object
     
     //? string: 문자열
@@ -82,7 +82,7 @@ export default function Es6Typescript() {
         b: 10
     }
 
-    //# 4. 연산자
+    //# 4. 연산자 
     //? 비교 연산 중 ==, ===(, !=, !===)
     //? == : 데이터타입은 비교하지 않음
     const str1: any = '10';
@@ -143,7 +143,7 @@ export default function Es6Typescript() {
     const object4: TExample = { d: 'a', e: 1, f: true };
     // const object5: TExample = new Example('a', 1, true);
 
-    //# 8. 삼항 연산자와 Spread 연산자, 비구조화 할당
+    //# 8. 삼항 연산자와 Spread 연산자, 비구조화 할당 
     //? 삼항 연산자
     //? 조건 ? 참일때 결과값 : 거짓일때 결과값
     const result = num > 0 ? '양수' : '양수가 아님';
@@ -173,6 +173,8 @@ export default function Es6Typescript() {
     state = { ...state, email: "이메일" };
     // state = { email: "email", password: "password", passwordCheck: "passwordCheck", email: "이메일" };
     console.log(state);
+
+    //# 9. Enum 
 
   return (
     <div>index</div>
