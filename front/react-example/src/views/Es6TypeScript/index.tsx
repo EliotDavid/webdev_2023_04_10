@@ -184,6 +184,7 @@ export default function Es6Typescript() {
 
     const fruit = ENUMERATED.APPLE;
     console.log(fruit);
+    // let fruit2: ENUMERATED = 'apple';
 
   return (
     <div>index</div>
