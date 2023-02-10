@@ -175,6 +175,15 @@ export default function Es6Typescript() {
     console.log(state);
 
     //# 9. Enum 
+    //? Enumerated Type: 열거형 타입
+    enum ENUMERATED {
+        APPLE = 'apple',
+        BANANA = 'banana',
+        CAROT = 'carot'
+    }
+
+    const fruit = ENUMERATED.APPLE;
+    console.log(fruit);
 
   return (
     <div>index</div>

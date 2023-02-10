@@ -18,7 +18,7 @@ export default function JsxTsx() {
 
   const numberArray = [1, 2, 3, 4, 5];
 
-  //# 1. tsx 파일에서 자성된 typescript 컴포넌트 함수는
+  //# 1. tsx 파일에서 작성된 Typescript 컴포넌트 함수는
   //# return의 () 안에 html 태그를 포함할 수 있음
   //? typescript return에 html을 표기하려면 ()로 묶어줘야함
   //^ return ()안에는 최상위 부모 태그가 무조건 1개 있어야 함
@@ -42,9 +42,12 @@ export default function JsxTsx() {
   //# 4. TSX는 xml 기반으로 HTML을 표기하기 때문에 문법이 정확해야함
   //? 모든 태그를 다 닫아줘야 하고 모든 html 요소를 소문자로 작성
   //? html 속성이 대소문자를 구분
+
+  const TRUE_TEXT = 'true';
+
   return (
     <div>
-      { trueFlag && (<div>true</div>) }
+      { trueFlag && (<div>{TRUE_TEXT}</div>) }
       { falseFlag && (<div>false</div>) }
       { trueFlag || (<div>or True</div>) }
       { falseFlag || (<div>or False</div>) }
