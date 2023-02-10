@@ -9,6 +9,7 @@ import MenuAppBar from "./components/MenuAppBar";
 import Es6Typescript from "./views/Es6TypeScript";
 import JsxTsx from "./views/JsxTsx";
 import { VIEW } from "./enums";
+import Hook from "./views/Hook";
 
 export default function App() {
   const [view, setView] = useState<VIEW>(VIEW.NAVER);
@@ -31,7 +32,7 @@ export default function App() {
           view === VIEW.KAKAO ? (<KakaoSignIn />) : 
           view === VIEW.TYPESCRIPT ? (<Es6Typescript />) : 
           view === VIEW.TSX ? (<JsxTsx />) : 
-          view === VIEW.HOOK ? (<></>) : 
+          view === VIEW.HOOK ? (<Hook />) : 
           view === VIEW.MUI ? (<></>) : (<></>)}
       </div>
     </div>
