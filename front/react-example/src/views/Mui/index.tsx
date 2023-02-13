@@ -1,12 +1,13 @@
 import { useState } from 'react'
 
-import { Button, IconButton } from "@mui/material"
-import { styled } from '@mui/material/styles';
+import { Button, IconButton, TextField, Box } from "@mui/material"
+import { createTheme, styled } from '@mui/material/styles';
 import { IconButtonProps } from '@mui/material/IconButton';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import AlarmOutlinedIcon from '@mui/icons-material/AlarmOutlined';
+import { ThemeProvider } from '@emotion/react';
 
 //# MUI 
 //? Material User Interface
@@ -18,7 +19,24 @@ import AlarmOutlinedIcon from '@mui/icons-material/AlarmOutlined';
 
 //# Mui styled method 
 //? mui component들의 style을 지정해주는 메서드
-const CustomIconButton = styled(IconButton)<IconButtonProps>();
+const CustomIconButton = styled(IconButton)<IconButtonProps>(({ theme }) => ({
+    color: theme.palette.primary.dark
+}));
+//# Mui createTheme method 
+//? 새로운 mui theme를 생성하는 메서드
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#ffff00'
+        },
+        secondary: {
+            main: '#00ff00'
+        }
+    }
+});
+const CustomIconButton2 = styled(IconButton)<IconButtonProps>(() => ({
+    color: theme.palette.secondary.main
+}));
 
 export default function Mui() {
 
@@ -94,9 +112,72 @@ export default function Mui() {
         {/*
         //^ Color Customization
         */}
-        <IconButton color='error'>
+        <CustomIconButton>
             <AlarmOutlinedIcon />
-        </IconButton>
+        </CustomIconButton>
+        <CustomIconButton2>
+            <AlarmOutlinedIcon />
+        </CustomIconButton2>
+        {/*
+        //# ThemeProvider Component 
+        //? createTheme 메서드로 생성한 커스텀 테마를 
+        //? 해당 컴포넌트 자손들에게 모두 적용되도록 하는 컴포넌트
+        */}
+        <ThemeProvider theme={theme}>
+            <IconButton color='primary'>
+                <AlarmOutlinedIcon />
+            </IconButton>
+        </ThemeProvider>
+        <br />
+        {/*
+        //# TextField Component 
+        //? HTML의 input 태그를 응용해서 조금 더 수월하게 사용할 수 있도록한 컴포넌트
+        //? import { TextField } from '@mui/material';
+        //? import TextField from '@mui/material/TextField';
+        //^ Props
+        //^ 1. variant
+        //? 값: 'outlined', 'filled', 'standard'
+        */}
+        <TextField variant='outlined'/>
+        <TextField variant='filled' />
+        <TextField variant='standard' />
+        {/*
+        //^ 2. label
+        //? 해당 TextFiled의 제목을 나타냄
+        //? 해당 TextFiled의 Placeholder 역할
+        */}
+        <TextField label='Email' variant='outlined' />
+        {/*
+        //^ 3. defaultValue
+        //? 기본 값 지정
+        //^ 4. required (true / false)
+        //? 해당 Component에 필수로 값을 입력해야함
+        //^ 5. disabled
+        //? 해당 Component를 사용 불가능으로 만듦
+        //^ 6. helperText
+        //? 해당 Component 아래에 설명을 추가함
+        */}
+        <TextField variant='outlined' label='required' required={true} />
+        <TextField variant='outlined' label='defaultValue' defaultValue='Default' />
+        <TextField variant='outlined' label='disabled' disabled={true} />
+        <TextField variant='outlined' label='helperText' helperText='This is Helper Text' />
+
+        {/*
+        //# Box Component 
+        //? HTML의 div 태그와 일맥상통
+        //? import { Box } from '@mui/material';
+        //? import Box from '@mui/material/Box';
+        //^ Props
+        //^ 1. component
+        //? Box Component의 속성을 변경 - 모든 html 태그로 변경
+        */}
+        <Box component='h3'>Hello MUI</Box>
+        <Box component='a' href='https://naver.com'>NAVER</Box>
+
+        {/*
+        //# Grid Component 
+        //? 공간은 12등분하여 자식 item을 구분
+        */}
     </>
   )
 }
