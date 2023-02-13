@@ -8,6 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import AlarmOutlinedIcon from '@mui/icons-material/AlarmOutlined';
 import { ThemeProvider } from '@emotion/react';
+import Grid from '@mui/material/Grid';
 
 //# MUI 
 //? Material User Interface
@@ -177,7 +178,34 @@ export default function Mui() {
         {/*
         //# Grid Component 
         //? 공간은 12등분하여 자식 item을 구분
+        //? 반응형 웹 구현에 기준
+        //? import { Grid } from '@mui/material';
+        //? import Grid from '@mui/material/Grid';
+        //^ Props
+        //^ 1. container
+        //? 해당 Component의 공간을 12등분으로 나눠줌
+        //^ 2. item
+        //? 12등분으로 나눠진 공간에 배치될 요소
+        //^ 3. spacing
+        //? item간의 간격 지정 - container로 지정된 Grid Component에서 사용
+        //^ 4. xs, sm, md, lg, xl
+        //? xs - 576px > width
+        //? sm - 576px <= width
+        //? md - 768px <= width
+        //? lg - 992px <= width
+        //? xl - 1536px <= width
         */}
+        <Grid container spacing={1}>
+            <Grid item xs={12} md={6} xl={4}>
+                <Box sx={{ height: '100px', backgroundColor: 'red' }}></Box>
+            </Grid>
+            <Grid item xs={12} md={6} xl={4}>
+                <Box sx={{ height: '100px', backgroundColor: 'blue' }}></Box>
+            </Grid>
+            <Grid item xs={12} md={12} xl={4}>
+                <Box sx={{ height: '100px', backgroundColor: 'red' }}></Box>
+            </Grid>
+        </Grid>
     </>
   )
 }
