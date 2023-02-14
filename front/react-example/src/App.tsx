@@ -37,7 +37,8 @@ export default function App() {
           <Route path={VIEW.TYPESCRIPT} element={(<Es6Typescript />)} />
           <Route path={VIEW.TSX} element={(<JsxTsx />)} />
           <Route path={VIEW.MUI} element={(<Mui />)} />
-          <Route path={VIEW.ROUTER} element={(<RouterView />)} />
+          <Route path={'router'} element={(<RouterView />)} />
+          <Route path={'router/:pathValue'} element={(<RouterView />)} />
           <Route path='*' element={(<Typography variant="h3">404</Typography>)} />
         </Routes>
         { /*

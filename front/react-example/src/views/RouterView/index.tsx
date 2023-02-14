@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
 
 import { Button, TextField, Typography } from "@mui/material";
 
@@ -24,18 +24,32 @@ import { Button, TextField, Typography } from "@mui/material";
 //? const 네비게이터 함수명 = useNavigate();
 //? 네비게이터함수명(path);
 
+//? Resource Path를 변경시키 전에 특정 작업하고자 할때 사용됨
+
+//^ useParams Hook 함수
+//? Resource Path로부터 특정 값을 가져올때 사용
+//? import { useParams } from 'react-router-dom';
+
+//? const { pathVariable명 } = useParams();
+
 export default function RouterView() {
   const [path, setPath] = useState<string>("");
-
   const navigator = useNavigate();
+
+  const { pathValue } = useParams();
 
   const movePath = () => {
     console.log(path);
-    navigator(path);
+    //^ navigate hook 및 Link의 path 자리에
+    //^ '/'가 붙지 않으면 현재 path 뒤에 '/'가 붙고
+    //^ 경로가 추가되서 변경됨 
+    if (path !== '' && path !== 'main')
+      navigator('/' + path);
   };
 
   return (
     <>
+      <Typography variant="h3">{pathValue}</Typography>
       <Routes>
         <Route
           path="test"
@@ -48,7 +62,7 @@ export default function RouterView() {
         label="path"
         onChange={(event) => setPath(event.target.value)}
       />
-      <Button variant='contained'>move!</Button>
+      <Button variant='contained' onClick={movePath}>move!</Button>
     </>
   );
 }
