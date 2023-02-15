@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
+import { Link, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { Button, TextField, Typography } from "@mui/material";
 
@@ -21,7 +21,7 @@ import { Button, TextField, Typography } from "@mui/material";
 //? Resource Path를 변경(이동)시켜주는 훅 함수
 //? import { useNavigate } from 'react-router-dom';
 
-//? const 네비게이터 함수명 = useNavigate();
+//? const 네비게이터함수명 = useNavigate();
 //? 네비게이터함수명(path);
 
 //? Resource Path를 변경시키 전에 특정 작업하고자 할때 사용됨
@@ -32,9 +32,15 @@ import { Button, TextField, Typography } from "@mui/material";
 
 //? const { pathVariable명 } = useParams();
 
+//^ useLocation Hook 함수
+//? 현재의 Resource Path를 문자열로 반환해주는 훅 함수
+//? import { useLocation } from 'react-router-dom';
+//? const 상수명 = useLocation();
+
 export default function RouterView() {
   const [path, setPath] = useState<string>("");
   const navigator = useNavigate();
+  const location = useLocation();
 
   const { pathValue } = useParams();
 
