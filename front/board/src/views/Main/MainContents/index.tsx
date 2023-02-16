@@ -23,11 +23,13 @@ export default function MainContents() {
     setPageNumber(page);
     const tmpList: IPreviewItem[] = [];
 
-    const startIndex = COUNT * (pageNumber - 1);
-    const endIndex = COUNT * pageNumber - 1;
+    const startIndex = COUNT * (page - 1);
+    const endIndex = COUNT * page - 1;
 
-    for (let index = startIndex; index <= endIndex; index++)
+    for (let index = startIndex; index <= endIndex; index++) {
+      if (boardList.length < index + 1) break;
       tmpList.push(boardList[index]);
+    }
 
     setViewList(tmpList);
   }
@@ -35,19 +37,11 @@ export default function MainContents() {
 
   useEffect(() => {
     setBoardList(BOARD_LIST);
-
-    const tmpList: IPreviewItem[] = [];
-
-    const startIndex = COUNT * (pageNumber - 1);
-    const endIndex = COUNT * pageNumber - 1;
-
-    for (let index = startIndex; index <= endIndex; index++)
-      tmpList.push(BOARD_LIST[index]);
-
-    setViewList(tmpList);
   }, []);
 
-
+  useEffect(() => {
+    onPageHandler(pageNumber);
+  }, [boardList]);
 
   return (
     <Box sx={{ p: '40px 120px', backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
@@ -67,7 +61,7 @@ export default function MainContents() {
         </Grid>
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Pagination page={pageNumber} count={10} onChange={(event, value) => onPageHandler(value)} />
+        <Pagination page={pageNumber} count={Math.floor(boardList.length / COUNT) + 1} onChange={(event, value) => onPageHandler(value)} />
       </Box>
     </Box>
   )
