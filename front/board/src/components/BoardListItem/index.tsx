@@ -26,9 +26,12 @@ export default function BoardListItem({ item }: Props) {
                 <Typography sx={{ fontSize: '12px', fontWeight: 400, color: 'rgba(0, 0, 0, 0.7)' }}>{`댓글 ${item.commentCount} · 좋아요 ${item.likeCount} · 조회수 ${item.viewCount}`}</Typography>
             </Box>
         </Box>
-        <Box>
-            <Box component='img' src={item.img as string} sx={{ height: '152px', width: '152px', borderRadius: '5%' }} />
-        </Box>
+        {item.img && (
+            <Box>
+                <Box component='img' src={item.img} sx={{ height: '152px', width: '152px', borderRadius: '5%' }} />
+            </Box>
+        )}
+        
     </Box>
   )
 }
