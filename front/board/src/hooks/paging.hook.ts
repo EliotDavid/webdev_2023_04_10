@@ -36,7 +36,11 @@ const usePagingHook = (content?: string) => {
     //? 해당 문자열에서 검색할 문자열이 존재한다면 true, 아니면 false를 반환하는 메서드
     const tmp = !content ? BOARD_LIST : BOARD_LIST.filter((board) => board.boardTitle.includes(content as string));
     setBoardList(tmp);
-  }, []);
+
+    //? SELECT * FROM Board ORDER BY writeDate DESC;
+    //? SELECT * FROM Board WHERE boardTitle LIKE '%content%' ORDER BY writeDate DESC;
+
+  }, [content]);
 
   useEffect(() => {
     onPageHandler(pageNumber);
