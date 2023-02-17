@@ -21,6 +21,7 @@ export default function MainContents() {
 
   const onPageHandler = (page: number) => {
     setPageNumber(page);
+  
     const tmpList: IPreviewItem[] = [];
 
     const startIndex = COUNT * (page - 1);
