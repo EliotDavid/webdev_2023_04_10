@@ -1,4 +1,4 @@
-import { IPreviewItem } from "src/interfaces";
+import { IPreviewItem, IUser } from "src/interfaces";
 
 export const TOP3: IPreviewItem[] = [
     {
@@ -477,3 +477,12 @@ export const POPULAR_LIST: string[] = [
     '점심 메뉴', '저녁 메뉴', '아침 메뉴',
     '점심 메뉴', '저녁 메뉴', '아침 메뉴',
 ]
+
+export const USER: IUser = {
+    email: 'qwer@qwer.com',
+    password: 'qwer1234',
+    nickname: 'jiraynor',
+    telNumber: '010-1111-2222',
+    address: '부산광역시 부산진구',
+    addressDetail: '삼정타워',
+}
