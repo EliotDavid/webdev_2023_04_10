@@ -7,10 +7,13 @@ import { Button, FormControl, IconButton, InputAdornment, OutlinedInput } from '
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import SearchIcon from '@mui/icons-material/Search';
+import { useUserStore } from 'src/stores';
 
 export default function NavigationBar() {
 
   const [content, setContent] = useState<string>('');
+  
+  const { user } = useUserStore();
 
   const navigator = useNavigate();
   const path = useLocation();
@@ -53,7 +56,19 @@ export default function NavigationBar() {
                 onChange={(event) => setContent(event.target.value)}
               />
             </FormControl>
-            {path.pathname !== '/auth' && (<Button variant='contained' sx={{backgroundColor: '#000000'}} onClick={() => navigator('/auth')}>로그인</Button>)}
+            {path.pathname !== '/auth' && 
+              (user ? 
+                (
+                  <Button variant='outlined' sx={{borderColor: '#000000', color: '#000000'}} onClick={() => navigator('/myPage')}>
+                    마이페이지
+                  </Button>
+                ) : (
+                  <Button variant='contained' sx={{backgroundColor: '#000000'}} onClick={() => navigator('/auth')}>
+                    로그인
+                  </Button>
+                )
+              )
+            }
           </Box>
         </Toolbar>
       </AppBar>

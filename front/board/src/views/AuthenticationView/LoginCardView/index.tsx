@@ -4,6 +4,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 
 import { USER } from 'src/mock';
+import { useUserStore } from 'src/stores';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
     setLoginView: Dispatch<SetStateAction<boolean>>
@@ -11,9 +13,13 @@ interface Props {
 
 export default function LoginCardView({ setLoginView }: Props) {
 
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  
+  const { setUser } = useUserStore();
+
+  const navigator = useNavigate();
 
   const onLoginHandler = () => {
     //? email 입력했는지 검증 / password 입력했는지 검증
@@ -29,7 +35,9 @@ export default function LoginCardView({ setLoginView }: Props) {
 
     //? 로그인 처리
     //? 쿠키에 로그인 데이터 (Token) 보관 
-    //? 스토어에 유저 데이터 보관 
+    //? 스토어에 유저 데이터 보관
+    setUser(USER);
+    navigator('/');
   }
 
   return (
