@@ -60,7 +60,7 @@ export default function SearchView() {
             <Grid container spacing={3}>
                 <Grid item sm={12} md={8}>
                     <Stack spacing={2}>
-                        {viewList.map((boardItem) => (<BoardListItem item={boardItem} />))}
+                        {viewList.length === 0 ? (<></>) : viewList.map((boardItem) => (<BoardListItem item={boardItem} />))}
                     </Stack>
                 </Grid>
                 <Grid item sm={12} md={4}>

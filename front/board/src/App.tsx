@@ -10,7 +10,7 @@ import SearchView from './views/SearchView';
 
 //# Router 설계 
 //? 1. 'main' path 작성 : '/'
-//? 2. 'auth' path 작성 : '/auth'
+//? 2. 'auth' path 작성 : '/auth' (로그인 화면 / 회원가입 화면)
 //? 3. 'myPage' path 작성 : '/myPage'
 //? 4. 'boardSearch' path 작성 : '/board/search/:content'
 //? 5. 'boardDetail' path 작성 : '/board/detail/:boardNumber'
