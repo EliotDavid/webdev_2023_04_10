@@ -11,7 +11,11 @@ import { usePagingHook } from 'src/hooks';
 
 export default function MainContents() {
 
-  const { viewList, pageNumber, boardList, onPageHandler, COUNT } = usePagingHook();
+  const { viewList, pageNumber, boardList, setBoardList, onPageHandler, COUNT } = usePagingHook();
+
+  useEffect(() => {
+    setBoardList(BOARD_LIST);
+  }, [])
 
   return (
     <Box sx={{ p: '40px 120px', backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
