@@ -19,6 +19,23 @@ export default function BoardWriteView() {
       return;
     }
     //? 존재한다면 작성
+    //# User table 
+    //^ userEmail VARCHAR(45) PK
+
+    //# Board table 
+    //^ boardNumber INT AI PK
+    //^ boardTitle TEXT NN
+    //^ boardContent TEXT NN
+    //^ writeDate DATETIME NN
+    //^ writerEmail VARCHAR(45) FK NN
+    //^ likeCount INT default 0
+    //^ commentCount INT default 0
+    //^ viewCount Int default 0
+
+    //? INSERT INTO Board(boardTitle, boardContent, wrtieDate, writerEmail)
+    //? VALUES (?, ?, now(), ?)
+
+    //? Back end로 boardTitle, boardContent, writerEmail을 넘겨주면 됨
     navigator('/myPage');
   }
 
