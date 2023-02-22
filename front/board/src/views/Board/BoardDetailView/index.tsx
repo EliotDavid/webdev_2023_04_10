@@ -120,7 +120,7 @@ export default function BoardDetailView() {
             <Box sx={{ mt: '20px' }}>
                 <Card variant='outlined' sx={{ p: '20px' }}>
                     <Typography>좋아요 {board?.likeCount}</Typography>
-                    <Box sx={{ m: '20px 0px' }}>
+                    <Box sx={{ m: '20px 0px', display: 'table' }}>
                         { likeList.map((likeUser) => (<LikeListItem likeUser={likeUser} />)) }
                     </Box>
                 </Card>
