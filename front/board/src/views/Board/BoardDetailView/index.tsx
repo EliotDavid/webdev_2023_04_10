@@ -1,7 +1,7 @@
 import { MouseEvent, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Avatar, Box, Card, Divider, IconButton, Menu, MenuItem, Typography } from '@mui/material'
+import { Avatar, Box, Card, Divider, IconButton, Menu, MenuItem, Stack, Typography } from '@mui/material'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
@@ -9,9 +9,10 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-import { BOARD_LIST } from 'src/mock';
-import { IPreviewItem } from 'src/interfaces';
+import { BOARD_LIST, LIKE_LIST } from 'src/mock';
+import { ILikeUser, IPreviewItem } from 'src/interfaces';
 import { useUserStore } from 'src/stores';
+import LikeListItem from 'src/components/LikeListItem';
 
 export default function BoardDetailView() {
 
@@ -21,6 +22,7 @@ export default function BoardDetailView() {
     const [board, setBoard] = useState<null | IPreviewItem>(null);
     const [likeStatus, setLikeStatus] = useState<boolean>(false);
     const [openLike, setOpenLike] = useState<boolean>(false);
+    const [likeList, setLikeList] = useState<ILikeUser[]>([]);
     const [openComment, setOpenComment] = useState<boolean>(false);
 
     const { boardNumber } = useParams();
@@ -51,6 +53,8 @@ export default function BoardDetailView() {
             navigator('/');
             return;
         }
+
+        setLikeList(LIKE_LIST);
 
         const owner = user !== null && user.nickname === board.writerNickname;
         setMenuFlag(owner);
@@ -116,11 +120,12 @@ export default function BoardDetailView() {
             <Box sx={{ mt: '20px' }}>
                 <Card variant='outlined' sx={{ p: '20px' }}>
                     <Typography>좋아요 {board?.likeCount}</Typography>
-                    <Box></Box>
+                    <Box sx={{ m: '20px 0px' }}>
+                        { likeList.map((likeUser) => (<LikeListItem likeUser={likeUser} />)) }
+                    </Box>
                 </Card>
             </Box>
         ) }
-        
         <Box>
 
         </Box>
