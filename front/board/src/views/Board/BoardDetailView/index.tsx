@@ -8,17 +8,17 @@ import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
-import { BOARD_LIST, COMMENT_LIST, LIKE_LIST } from 'src/mock';
-import { ICommentItem, ILikeUser, IPreviewItem } from 'src/interfaces';
-import { useUserStore } from 'src/stores';
-import LikeListItem from 'src/components/LikeListItem';
 import Pagination from '@mui/material/Pagination';
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
+
 import CommentListItem from 'src/components/CommentListItem';
+import LikeListItem from 'src/components/LikeListItem';
 import { usePagingHook } from 'src/hooks';
+import { useUserStore } from 'src/stores';
+import { ICommentItem, ILikeUser, IPreviewItem } from 'src/interfaces';
 import { getPageCount } from 'src/utils';
+import { BOARD_LIST, COMMENT_LIST, LIKE_LIST } from 'src/mock';
 
 export default function BoardDetailView() {
 

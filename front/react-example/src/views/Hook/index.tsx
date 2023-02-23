@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-//# Hook -> 함수형 컴포넌트에서만 동작
+//# Hook -> 함수형 컴포넌트에서만 동작 
 //? state와 React 기능을 관리하는 메서드
 
 //^ Hook 함수의 규칙
@@ -9,15 +9,15 @@ import { useState, useEffect } from 'react'
 //? 3. 조건부로 호출할 수 없음 
 
 //# 함수형 컴포넌트 외부에서 Hook 함수를 사용한 경우
-//? React Hooks must be called in a React function component or a custom React Hook function
+//! React Hooks must be called in a React function component or a custom React Hook function
 //? 위 에러를 반환
 // const [extState, setExtState] = useState<boolean>(false);
 
 export default function Hook() {
 
     //# 함수형 컴포넌트의 자손 함수에서 사용한 경우
-    //? React component names must start with an uppercase letter. 
-    //? React Hook names must start with the word "use"
+    //! React component names must start with an uppercase letter. 
+    //! React Hook names must start with the word "use" 
     //? 위 에러를 반환
     const fn = () => {
         // const [intState, setIntState] = useState<boolean>(false);
