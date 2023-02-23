@@ -11,7 +11,7 @@ import { usePagingHook } from 'src/hooks';
 
 export default function MainContents() {
 
-  const { viewList, pageNumber, boardList, setBoardList, onPageHandler, COUNT } = usePagingHook();
+  const { viewList, pageNumber, boardList, setBoardList, onPageHandler, COUNT } = usePagingHook(5);
 
   useEffect(() => {
     setBoardList(BOARD_LIST);
@@ -26,7 +26,7 @@ export default function MainContents() {
         <Grid container spacing={3}>
           <Grid item sm={12} md={8}>
             <Stack spacing={2}>
-              {viewList.map((boardItem) => (<BoardListItem item={boardItem} />))}
+              {viewList.map((boardItem) => (<BoardListItem item={boardItem as IPreviewItem} />))}
             </Stack>
           </Grid>
           <Grid item sm={12} md={4}>

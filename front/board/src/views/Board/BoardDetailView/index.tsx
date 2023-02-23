@@ -9,13 +9,16 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-import { BOARD_LIST, LIKE_LIST } from 'src/mock';
-import { ILikeUser, IPreviewItem } from 'src/interfaces';
+import { BOARD_LIST, COMMENT_LIST, LIKE_LIST } from 'src/mock';
+import { ICommentItem, ILikeUser, IPreviewItem } from 'src/interfaces';
 import { useUserStore } from 'src/stores';
 import LikeListItem from 'src/components/LikeListItem';
 import Pagination from '@mui/material/Pagination';
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
+import CommentListItem from 'src/components/CommentListItem';
+import { usePagingHook } from 'src/hooks';
+import { getPageCount } from 'src/utils';
 
 export default function BoardDetailView() {
 
@@ -27,6 +30,8 @@ export default function BoardDetailView() {
     const [openLike, setOpenLike] = useState<boolean>(false);
     const [likeList, setLikeList] = useState<ILikeUser[]>([]);
     const [openComment, setOpenComment] = useState<boolean>(false);
+
+    const { boardList, setBoardList, viewList, COUNT, pageNumber, onPageHandler } = usePagingHook(3);
 
     const { boardNumber } = useParams();
     const navigator = useNavigate();
@@ -62,6 +67,8 @@ export default function BoardDetailView() {
         const owner = user !== null && user.nickname === board.writerNickname;
         setMenuFlag(owner);
         setBoard(board);
+
+        setBoardList(COMMENT_LIST);
     }, [])
 
   return (
@@ -133,22 +140,14 @@ export default function BoardDetailView() {
         { openComment && (
             <Box>
                 <Box sx={{ p: '20px' }}>
-                    <Typography sx={{ fontSize: '16px', fontWeight: 500 }}>댓글 0</Typography>
+                    <Typography sx={{ fontSize: '16px', fontWeight: 500 }}>댓글 {boardList.length}</Typography>
                     <Stack sx={{ p: '20px 0px' }} spacing={3.75}>
-                        <Box>
-                            <Box sx={{ mb: '8px', display: 'flex', alignItems: 'center' }}>
-                                <Avatar sx={{ height: '32px', width: '32px', mr: '8px' }} src='' />
-                                <Typography sx={{ fontSize: '16px', fontWeight: 500, color: 'rgba(0, 0, 0, 0.7)' }}>Nickname</Typography>
-                                <Divider sx={{ mr: '8px', ml: '8px' }} orientation='vertical' variant='middle' flexItem />
-                                <Typography sx={{ fontSize: '16px', fontWeight: 400, color: 'rgba(0, 0, 0, 0.4)' }}>0 분전</Typography>
-                            </Box>
-                            <Typography sx={{ fontSize: '18px', fontWeight: 500, lineHeight: '150%', color: 'rgba(0, 0, 0, 0.7)' }}>Content~~!</Typography>
-                        </Box>
+                        {viewList.map((commentItem) => (<CommentListItem item={commentItem as ICommentItem} />))}
                     </Stack>
                 </Box>
                 <Divider />
                 <Box sx={{ p: '20px 0px', display: 'flex', justifyContent: 'center' }}>
-                    <Pagination />
+                    <Pagination page={pageNumber} count={getPageCount(boardList, COUNT)} onChange={(event, value) => onPageHandler(value)} />
                 </Box>
                 <Box>
                     <Card variant='outlined' sx={{ p: '20px' }}>
