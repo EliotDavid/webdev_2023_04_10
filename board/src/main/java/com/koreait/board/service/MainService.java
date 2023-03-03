@@ -1,11 +1,14 @@
 package com.koreait.board.service;
 
 import org.apache.catalina.connector.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.koreait.board.dto.GetTestResponseDto;
 import com.koreait.board.dto.PostTestRequestDto;
 import com.koreait.board.dto.ResponseDto;
+import com.koreait.board.entity.ExampleEntity;
+import com.koreait.board.repository.ExampleRepository;
 
 //# Service 
 //? 실제 비즈니스 로직을 담당하는 레이어
@@ -14,8 +17,15 @@ import com.koreait.board.dto.ResponseDto;
 //? Repository에서 데이터를 가져와 작업을 진행함
 @Service
 public class MainService {
+
+    @Autowired
+    private ExampleRepository exampleRepository;
     
     public ResponseDto<String> getMain() {
+
+        ExampleEntity exampleEntity = new ExampleEntity(1, "Hello", 100);
+        exampleRepository.save(exampleEntity);
+
         ResponseDto<String> result = ResponseDto.setSuccess("success", "Hello World!");
         return result;
     }
