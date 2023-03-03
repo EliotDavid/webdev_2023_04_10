@@ -1,5 +1,7 @@
 package com.koreait.board.service;
 
+import java.util.List;
+
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,12 @@ public class MainService {
     
     public ResponseDto<String> getMain() {
 
-        ExampleEntity exampleEntity = new ExampleEntity(1, "Hello", 100);
+        ExampleEntity exampleEntity = 
+          ExampleEntity
+          .builder()
+          .comment("Hello")
+          .number(10)
+          .build();
         exampleRepository.save(exampleEntity);
 
         ResponseDto<String> result = ResponseDto.setSuccess("success", "Hello World!");
@@ -31,7 +38,10 @@ public class MainService {
     }
 
     public ResponseDto<String> getVariable(String data) {
-        String string = "You input data is '" + data + "'";
+        System.out.println(data);
+        ExampleEntity exampleEntity = exampleRepository.findByComment(data);
+        String string = exampleEntity.toString();
+
         ResponseDto<String> result = ResponseDto.setSuccess("success", string);
         return result;
     }
