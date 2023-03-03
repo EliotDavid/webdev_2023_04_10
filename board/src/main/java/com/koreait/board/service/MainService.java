@@ -2,7 +2,6 @@ package com.koreait.board.service;
 
 import java.util.List;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -81,6 +80,32 @@ public class MainService {
         GetTestResponseDto data = new GetTestResponseDto(10, "Comment");
         ResponseDto<GetTestResponseDto> result = ResponseDto.setSuccess("success", data);
         return result;
+    }
+
+    public void descriptionJpaMethod() {
+        //# JpaRepository 기본 메서드 
+        //! findById(PK).get();
+        //? 해당 테이블에서 PK를 기준으로 값을 검색한 결과를 반환
+        ExampleEntity exampleEntity = exampleRepository.findById(0).get();
+
+        //! findAll();
+        //? 해당 테이블의 모든 레코드를 검색한 결과를 반환
+        List<ExampleEntity> entityList = exampleRepository.findAll();
+
+        //! save(entityInstance);
+        //? 해당 테이블에 특정 레코드를 삽입 혹은 수정
+        //? Primary Key를 기준으로 Primary key에 해당하는 레코드가 없으면 '삽입'
+        //? Primary Key에 해당하는 레코드가 있으면 해당 레코드를 '수정'
+        exampleRepository.save(exampleEntity);
+
+        //! existsById(PK);
+        //? 해당 테이블에 PK를 기준으로 레코드가 존재한다면 true를 반환,
+        //? 존재하지 않는다면 false를 반환
+        boolean hasEntity = exampleRepository.existsById(0);
+
+        //! deleteById(PK);
+        //? 해당 테이블에 PK를 기준으로 특정 레코드를 삭제
+        exampleRepository.deleteById(0);
     }
 
 }
