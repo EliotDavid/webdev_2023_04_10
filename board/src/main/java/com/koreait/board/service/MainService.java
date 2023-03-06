@@ -25,11 +25,11 @@ public class MainService {
     public ResponseDto<String> getMain() {
 
         ExampleEntity exampleEntity = 
-          ExampleEntity
-          .builder()
-          .comment("Hello")
-          .number(10)
-          .build();
+            ExampleEntity
+                .builder()
+                .comment("Hello")
+                .number(10)
+                .build();
         exampleRepository.save(exampleEntity);
 
         ResponseDto<String> result = ResponseDto.setSuccess("success", "Hello World!");
