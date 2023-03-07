@@ -20,6 +20,7 @@ public class HumanResourceController {
     @Autowired private HumanResourceService humanResourceService;
 
     @PostMapping("/")
+    //? POST http://localhost:4040/apis/hr/
     public ResponseDto<PostHumanResourceResponseDto> postHumanResource(@Valid @RequestBody PostHumanResourceRequestDto requestBody) {
         ResponseDto<PostHumanResourceResponseDto> response = 
             humanResourceService.postHumanResource(requestBody);

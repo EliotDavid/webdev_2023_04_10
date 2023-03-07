@@ -1,5 +1,7 @@
 package com.koreait.board.dto.response.humanResource;
 
+import com.koreait.board.entity.EmployeeEntity;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,4 +40,22 @@ public class PostHumanResourceResponseDto {
     private int annualIncome;
     //? 비고
     private String note;
+
+    public PostHumanResourceResponseDto(EmployeeEntity employeeEntity) {
+        this.employeeNumber = employeeEntity.getEmployeeNumber();
+        this.position = employeeEntity.getPosition();
+        this.name = employeeEntity.getName();
+        this.age = employeeEntity.getAge();
+        this.gender = employeeEntity.getGender();
+        this.academicAbility = employeeEntity.getAcademicAbility();
+        this.birth = employeeEntity.getBirth();
+        this.telNumber = employeeEntity.getTelNumber();
+        this.address = employeeEntity.getAddress();
+        this.addressDetail = employeeEntity.getAddressDetail();
+        this.joinDate = employeeEntity.getJoinDate();
+        this.resignationDate = employeeEntity.getResignationDate();
+        this.department = employeeEntity.getDepartment();
+        this.annualIncome = employeeEntity.getAnnualIncome();
+        this.note = employeeEntity.getNote();
+    }
 }
