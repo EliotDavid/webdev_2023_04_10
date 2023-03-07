@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.koreait.board.dto.request.humanResource.PostHumanResourceRequestDto;
 import com.koreait.board.dto.response.ResponseDto;
+import com.koreait.board.dto.response.humanResource.GetHumanResourceResponseDto;
 import com.koreait.board.dto.response.humanResource.PostHumanResourceResponseDto;
 import com.koreait.board.entity.EmployeeEntity;
 import com.koreait.board.repository.DepartmentRepository;
@@ -43,6 +44,17 @@ public class HumanResourceService {
         }
 
         return ResponseDto.setSuccess("Success", data);
+    }
+
+    public ResponseDto<GetHumanResourceResponseDto> getHumanResource(int employeeNumber) {
+
+        try {
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.setFail("Data error");
+        }
+
     }
 
 }
