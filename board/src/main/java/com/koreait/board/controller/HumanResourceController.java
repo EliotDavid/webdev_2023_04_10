@@ -27,13 +27,17 @@ public class HumanResourceController {
     public ResponseDto<PostHumanResourceResponseDto> postHumanResource(@Valid @RequestBody PostHumanResourceRequestDto requestBody) {
         ResponseDto<PostHumanResourceResponseDto> response = 
             humanResourceService.postHumanResource(requestBody);
-
         return response;
     }
 
     @GetMapping("/{employeeNumber}")
+    //? GET http://localhost:4040/apis/hr/사번
     public ResponseDto<GetHumanResourceResponseDto> getHumanResource(@PathVariable("employeeNumber") int employeeNumber) {
-        
+        ResponseDto<GetHumanResourceResponseDto> response =
+            humanResourceService.getHumanResource(employeeNumber);
+        return response;
     }
+
+    
 
 }
