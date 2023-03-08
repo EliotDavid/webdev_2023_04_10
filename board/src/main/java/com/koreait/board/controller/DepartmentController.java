@@ -35,6 +35,7 @@ public class DepartmentController {
     }
 
     @GetMapping(GET_ALL_DEPARTMENT_LIST)
+    // GET http://localhost:4040/apis/department/all
     public ResponseDto<List<GetAllDepartmentListResponseDto>> getAllDepartmentList() {
         ResponseDto<List<GetAllDepartmentListResponseDto>> response = departmentService.getAllDepartmentList();
         return response;
