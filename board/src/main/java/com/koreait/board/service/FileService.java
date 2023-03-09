@@ -3,13 +3,17 @@ package com.koreait.board.service;
 import java.io.File;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileService {
 
-    private final String FILE_PATH = "C:/fileupload/"; 
+    @Value("${file.path}") private String FILE_PATH;
+    @Value("${file.url.image}") private String FILE_URL_IMAGE;
     
     public String upload(MultipartFile file) {
 
@@ -35,8 +39,27 @@ public class FileService {
             return null;
         }
 
-        return saveName;
+        String fileUrl = FILE_URL_IMAGE + saveName;
+        return fileUrl;
 
+    }
+
+    public Resource getImageFile(String imageName) {
+
+        Resource resource = null;
+        //? file 프로토콜 url path
+        String fileURL = "file:" + FILE_PATH + imageName;
+
+        try {
+            //? 해당하는 file URL의 파일을 불러옴
+            resource = new UrlResource(fileURL);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return null;
+        }
+
+        return resource;
     }
 
 }
