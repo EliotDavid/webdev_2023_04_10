@@ -48,8 +48,10 @@ public class HumanResourceController {
     }
 
     @PatchMapping(PATCH_HUMAN_RESOURCE)
+    //? PATCH http://localhost:4040/apis/hr/
     public ResponseDto<PatchHumanResourceResponseDto> patchHumanResource(@Valid @RequestBody PatchHumanResourceRequestDto requestBody) {
-        ResponseDto<PatchHumanResourceResponseDto> response = null;
+        ResponseDto<PatchHumanResourceResponseDto> response = 
+            humanResourceService.patchHumanResource(requestBody);
         return response;
     }
 
