@@ -53,7 +53,7 @@ public class DepartmentService {
 
     public ResponseDto<List<GetAllDepartmentListResponseDto>> getAllDepartmentList() {
 
-        List<GetAllDepartmentListResponseDto> data = new ArrayList<GetAllDepartmentListResponseDto>();
+        List<GetAllDepartmentListResponseDto> data = null;
 
         try {
 
