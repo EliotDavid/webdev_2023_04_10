@@ -16,9 +16,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.HttpClientErrorException.Unauthorized;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.koreait.board.common.exception.UnauthorizationException;
 import com.koreait.board.provider.TokenProvider;
 
 @Component
@@ -36,20 +36,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 String token = parseBearToken(request);
 
                 //? token이 있는지
-                if (token != null) {
+                if (token != null) throw new Exception();
 
-                    String sub = tokenProvider.validate(token);
+                String sub = tokenProvider.validate(token);
 
-                    AbstractAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(sub, null, AuthorityUtils.NO_AUTHORITIES);
-                    authenticationToken
-                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                AbstractAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(sub, null, AuthorityUtils.NO_AUTHORITIES);
+                authenticationToken
+                    .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                    SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-                    securityContext.setAuthentication(authenticationToken);
-                    SecurityContextHolder.setContext(securityContext);
-
-                }
+                SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+                securityContext.setAuthentication(authenticationToken);
+                SecurityContextHolder.setContext(securityContext);
 
             } catch(Exception exception) {
                 exception.printStackTrace();
