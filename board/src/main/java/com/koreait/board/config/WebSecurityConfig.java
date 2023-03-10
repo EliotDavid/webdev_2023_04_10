@@ -22,10 +22,6 @@ public class WebSecurityConfig {
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-            .cors().and()
-            .csrf().disable()
-            .httpBasic().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests().antMatchers("/auth/**", "/file/**").permitAll()
             .anyRequest().authenticated();
 
