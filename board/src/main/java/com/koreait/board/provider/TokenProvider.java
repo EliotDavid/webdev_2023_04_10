@@ -4,12 +4,13 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-@Service
+@Component
 public class TokenProvider {
     
     public String create() {
@@ -32,6 +33,19 @@ public class TokenProvider {
 
         return jwt;
                     
+    }
+
+    public String validate (String jwt) {
+
+        //? 매개변수로 받은 jwt를 소유하고있는 secureKey를 사용해서 복호화 (디코딩)
+        Claims claims = Jwts
+            .parser()
+            .setSigningKey("SecureKey")
+            .parseClaimsJws(jwt)
+            .getBody();
+
+        return claims.getSubject();
+
     }
 
 }
