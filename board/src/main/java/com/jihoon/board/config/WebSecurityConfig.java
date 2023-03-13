@@ -24,7 +24,7 @@ public class WebSecurityConfig {
             .csrf().disable()
             .httpBasic().disable()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .authorizeRequests().antMatchers("/aa").permitAll()
+            .authorizeRequests().antMatchers("/**").permitAll()
             .anyRequest().authenticated();
 
         httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
