@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Entity(name="Board")
 @Table(name="Board")
 public class BoardEntity {
-    // board_number int AI PK 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int boardNumber;

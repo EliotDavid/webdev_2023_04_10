@@ -16,11 +16,8 @@ import lombok.NoArgsConstructor;
 @Entity(name="SearchWordLog")
 @Table(name="SearchWordLog")
 public class SearchWordLogEntity {
-//     sequence int AI PK 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int sequence;
     private String searchWord;
-// search_word text
-
 }
