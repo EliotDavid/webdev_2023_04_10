@@ -12,11 +12,13 @@ import com.jihoon.board.dto.response.ResponseDto;
 import com.jihoon.board.dto.response.auth.SignInResponseDto;
 import com.jihoon.board.dto.response.auth.SignUpResponseDto;
 import com.jihoon.board.entity.UserEntity;
+import com.jihoon.board.provider.TokenProvider;
 import com.jihoon.board.repository.UserRepository;
 
 @Service
 public class AuthService {
-    
+
+    @Autowired private TokenProvider tokenProvider;
     @Autowired private UserRepository userRepository;
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -61,13 +63,25 @@ public class AuthService {
         String email = dto.getEmail();
         String password = dto.getPassword();
 
+        UserEntity userEntity = null;
+
         try {
+            userEntity = userRepository.findByEmail(email);
+            if (userEntity == null) return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
 
-            UserEntity userEntity = userRepository.findByEmail(email);
-
+            boolean isEqualPassword = passwordEncoder.matches(password, userEntity.getPassword());
+            if (!isEqualPassword) return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        try {
+            String token = tokenProvider.create(email);
+            data = new SignInResponseDto(userEntity, token);
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.FAIL_SIGN_IN);
         }
 
         return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
