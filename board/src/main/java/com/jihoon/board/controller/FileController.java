@@ -2,6 +2,7 @@ package com.jihoon.board.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,10 +29,10 @@ public class FileController {
         return response;
     }
 
-    @GetMapping(GET_FILE)
+    @GetMapping(value=GET_FILE, produces={MediaType.ALL_VALUE})
     public Resource getFile(@PathVariable("fileName") String fileName) {
-
+        Resource response = fileService.getFile(fileName);
+        return response;
     }
-
 
 }
