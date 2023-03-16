@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jihoon.board.common.constant.ResponseMessage;
+import com.jihoon.board.dto.request.board.PatchBoardDto;
 import com.jihoon.board.dto.request.board.PostBoardDto;
 import com.jihoon.board.dto.response.ResponseDto;
+import com.jihoon.board.dto.response.board.DeleteBoardResponseDto;
 import com.jihoon.board.dto.response.board.GetBoardResponseDto;
 import com.jihoon.board.dto.response.board.GetListResponseDto;
+import com.jihoon.board.dto.response.board.PatchBoardResponseDto;
 import com.jihoon.board.dto.response.board.PostBoardResponseDto;
 import com.jihoon.board.entity.BoardEntity;
 import com.jihoon.board.entity.CommentEntity;
@@ -82,6 +85,52 @@ public class BoardService {
             data = GetListResponseDto.copyList(boardEntityList);
 
         } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+
+    }
+
+    public ResponseDto<PatchBoardResponseDto> patchBoard(String email, PatchBoardDto dto) {
+
+        PatchBoardResponseDto data = null;
+
+        int boardNumber = dto.getBoardNumber();
+
+        try {
+
+            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_BOARD);
+
+            boolean isEqualWriter = email.equals(boardEntity.getWriterEmail());
+            if (!isEqualWriter) return ResponseDto.setFailed(ResponseMessage.NOT_PERMISSION);
+
+            boardEntity.patch(dto);
+            boardRepository.save(boardEntity);
+
+            List<LikyEntity> likyList = likyRepository.findByBoardNumber(boardNumber);
+            List<CommentEntity> commentList = commentRepository.findByBoardNumberOrderByWriteDatetimeDesc(boardNumber);
+
+            data = new PatchBoardResponseDto(boardEntity, commentList, likyList);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+
+    }
+
+    public ResponseDto<DeleteBoardResponseDto> deleteBoard(String email, int boardNumber) {
+
+        DeleteBoardResponseDto data = null;
+
+        try {
+
+        } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
         }
