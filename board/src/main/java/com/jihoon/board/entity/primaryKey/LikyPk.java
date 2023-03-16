@@ -8,7 +8,6 @@ import javax.persistence.Embeddable;
 import lombok.Data;
 
 @Data
-@Embeddable
 public class LikyPk implements Serializable {
 
     @Column(name="user_email")
