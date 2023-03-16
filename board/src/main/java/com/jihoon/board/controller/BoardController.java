@@ -22,6 +22,7 @@ import com.jihoon.board.dto.response.ResponseDto;
 import com.jihoon.board.dto.response.board.DeleteBoardResponseDto;
 import com.jihoon.board.dto.response.board.GetBoardResponseDto;
 import com.jihoon.board.dto.response.board.GetListResponseDto;
+import com.jihoon.board.dto.response.board.GetMyListResponseDto;
 import com.jihoon.board.dto.response.board.PatchBoardResponseDto;
 import com.jihoon.board.dto.response.board.PostBoardResponseDto;
 import com.jihoon.board.service.BoardService;
@@ -35,6 +36,7 @@ public class BoardController {
     private final String POST_BOARD = "";
     private final String GET_BOARD = "/{boardNumber}";
     private final String GET_LIST = "/list";
+    private final String GET_MY_LIST = "/my-list";
     private final String PATCH_BOARD = "";
     private final String DELETE_BOARD = "/{boardNumber}";
 
@@ -56,6 +58,12 @@ public class BoardController {
     @GetMapping(GET_LIST)
     public ResponseDto<List<GetListResponseDto>> getList() {
         ResponseDto<List<GetListResponseDto>> response = boardService.getList();
+        return response;
+    }
+
+    @GetMapping(GET_MY_LIST)
+    public ResponseDto<List<GetMyListResponseDto>> getMyList(@AuthenticationPrincipal String email) {
+        ResponseDto<List<GetMyListResponseDto>> response = boardService.getMyList(email);
         return response;
     }
 

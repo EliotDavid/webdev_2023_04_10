@@ -12,6 +12,7 @@ import com.jihoon.board.dto.response.ResponseDto;
 import com.jihoon.board.dto.response.board.DeleteBoardResponseDto;
 import com.jihoon.board.dto.response.board.GetBoardResponseDto;
 import com.jihoon.board.dto.response.board.GetListResponseDto;
+import com.jihoon.board.dto.response.board.GetMyListResponseDto;
 import com.jihoon.board.dto.response.board.PatchBoardResponseDto;
 import com.jihoon.board.dto.response.board.PostBoardResponseDto;
 import com.jihoon.board.entity.BoardEntity;
@@ -61,7 +62,7 @@ public class BoardService {
         try {
 
             BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
-            if (boardEntity == null) ResponseDto.setFailed(ResponseMessage.NOT_EXIST_BOARD);
+            if (boardEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_BOARD);
             List<LikyEntity> likyList = likyRepository.findByBoardNumber(boardNumber);
             List<CommentEntity> commentList = commentRepository.findByBoardNumberOrderByWriteDatetimeDesc(boardNumber);
             data = new GetBoardResponseDto(boardEntity, commentList, likyList);
@@ -85,6 +86,24 @@ public class BoardService {
             data = GetListResponseDto.copyList(boardEntityList);
 
         } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+
+    }
+
+    public ResponseDto<List<GetMyListResponseDto>> getMyList(String email) {
+
+        List<GetMyListResponseDto> data = null;
+
+        try {
+
+            List<BoardEntity> boardList = boardRepository.findByWriterEmailOrderByBoardWriteDatetimeDesc(email);
+            data = GetMyListResponseDto.copyList(boardList);
+
+        } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
         }
@@ -129,6 +148,15 @@ public class BoardService {
         DeleteBoardResponseDto data = null;
 
         try {
+
+            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_BOARD);
+
+            boolean isEqualWriter = email.equals(boardEntity.getWriterEmail());
+            if (!isEqualWriter) return ResponseDto.setFailed(ResponseMessage.NOT_PERMISSION);
+
+            boardRepository.delete(boardEntity);
+            data = new DeleteBoardResponseDto(true);
 
         } catch (Exception exception) {
             exception.printStackTrace();
