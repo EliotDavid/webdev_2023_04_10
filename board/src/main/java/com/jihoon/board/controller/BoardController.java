@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jihoon.board.common.constant.ApiPattern;
+import com.jihoon.board.dto.request.board.LikeDto;
 import com.jihoon.board.dto.request.board.PatchBoardDto;
 import com.jihoon.board.dto.request.board.PostBoardDto;
 import com.jihoon.board.dto.response.ResponseDto;
@@ -23,6 +24,7 @@ import com.jihoon.board.dto.response.board.DeleteBoardResponseDto;
 import com.jihoon.board.dto.response.board.GetBoardResponseDto;
 import com.jihoon.board.dto.response.board.GetListResponseDto;
 import com.jihoon.board.dto.response.board.GetMyListResponseDto;
+import com.jihoon.board.dto.response.board.LikeResponseDto;
 import com.jihoon.board.dto.response.board.PatchBoardResponseDto;
 import com.jihoon.board.dto.response.board.PostBoardResponseDto;
 import com.jihoon.board.service.BoardService;
@@ -34,6 +36,7 @@ public class BoardController {
     @Autowired private BoardService boardService;
 
     private final String POST_BOARD = "";
+    private final String LIKE = "/like";
     private final String GET_BOARD = "/{boardNumber}";
     private final String GET_LIST = "/list";
     private final String GET_MY_LIST = "/my-list";
@@ -48,6 +51,16 @@ public class BoardController {
         ResponseDto<PostBoardResponseDto> response = boardService.postBoard(email, requestBody);
         return response;
     }
+
+    @PostMapping(LIKE)
+    public ResponseDto<LikeResponseDto> like(
+        @AuthenticationPrincipal String email, 
+        @Valid @RequestBody LikeDto requestBody
+    ) {
+        ResponseDto<LikeResponseDto> response = boardService.like(email, requestBody);
+        return response;
+    }
+
 
     @GetMapping(GET_BOARD)
     public ResponseDto<GetBoardResponseDto> getBoard(@PathVariable("boardNumber") int boardNumber) {
