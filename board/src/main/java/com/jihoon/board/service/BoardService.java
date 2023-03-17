@@ -208,7 +208,7 @@ public class BoardService {
             SearchWordLogEntity searchWordLogEntity = new SearchWordLogEntity(searchWord);
             searchWordLogRepository.save(searchWordLogEntity);
 
-            if (!previousSearchWord.isBlank()) {
+            if (previousSearchWord != null && !previousSearchWord.isBlank()) {
                 RelatedSearchWordEntity relatedSearchWordEntity = new RelatedSearchWordEntity(searchWord, previousSearchWord);
                 relatedSearchWordRepository.save(relatedSearchWordEntity);
             }

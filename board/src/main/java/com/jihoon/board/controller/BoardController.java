@@ -94,10 +94,10 @@ public class BoardController {
         return response;
     }
 
-    @GetMapping(value={GET_SEARCH_LIST, GET_SEARCH_LIST_PREVIOUS})
+    @GetMapping(value={GET_SEARCH_LIST_PREVIOUS, GET_SEARCH_LIST})
     public ResponseDto<List<GetSearchListResponseDto>> getSearchList(
         @PathVariable("searchWord") String searchWord,
-        @PathVariable("previousSearchWord") String previousSearchWord
+        @PathVariable(name="previousSearchWord", required=false) String previousSearchWord
     ) {
         ResponseDto<List<GetSearchListResponseDto>> response = boardService.getSearchList(searchWord, previousSearchWord);
         return response;
