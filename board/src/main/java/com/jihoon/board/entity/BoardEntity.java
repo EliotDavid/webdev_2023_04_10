@@ -73,8 +73,4 @@ public class BoardEntity {
     public void increaseCommentCount() {
         this.commentCount++;
     }
-
-    public void decreaseCommentCount() {
-        this.commentCount--;
-    }
 }

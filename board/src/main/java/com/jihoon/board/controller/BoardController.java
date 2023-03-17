@@ -19,6 +19,7 @@ import com.jihoon.board.common.constant.ApiPattern;
 import com.jihoon.board.dto.request.board.LikeDto;
 import com.jihoon.board.dto.request.board.PatchBoardDto;
 import com.jihoon.board.dto.request.board.PostBoardDto;
+import com.jihoon.board.dto.request.board.PostCommentDto;
 import com.jihoon.board.dto.response.ResponseDto;
 import com.jihoon.board.dto.response.board.DeleteBoardResponseDto;
 import com.jihoon.board.dto.response.board.GetBoardResponseDto;
@@ -27,6 +28,7 @@ import com.jihoon.board.dto.response.board.GetMyListResponseDto;
 import com.jihoon.board.dto.response.board.LikeResponseDto;
 import com.jihoon.board.dto.response.board.PatchBoardResponseDto;
 import com.jihoon.board.dto.response.board.PostBoardResponseDto;
+import com.jihoon.board.dto.response.board.PostCommentResponseDto;
 import com.jihoon.board.service.BoardService;
 
 @RestController
@@ -36,10 +38,12 @@ public class BoardController {
     @Autowired private BoardService boardService;
 
     private final String POST_BOARD = "";
+    private final String POST_COMMENT = "/comment";
     private final String LIKE = "/like";
     private final String GET_BOARD = "/{boardNumber}";
     private final String GET_LIST = "/list";
     private final String GET_MY_LIST = "/my-list";
+    private final String GET_SEARCH_LIST = "/search-list/{searchWord}/{previousSearchWord}";
     private final String PATCH_BOARD = "";
     private final String DELETE_BOARD = "/{boardNumber}";
 
@@ -52,6 +56,15 @@ public class BoardController {
         return response;
     }
 
+    @PostMapping(POST_COMMENT)
+    public ResponseDto<PostCommentResponseDto> postComment(
+        @AuthenticationPrincipal String email,
+        @Valid @RequestBody PostCommentDto requestBody
+    ) {
+        ResponseDto<PostCommentResponseDto> response = boardService.postComment(email, requestBody);
+        return response;
+    }
+
     @PostMapping(LIKE)
     public ResponseDto<LikeResponseDto> like(
         @AuthenticationPrincipal String email, 
@@ -60,7 +73,6 @@ public class BoardController {
         ResponseDto<LikeResponseDto> response = boardService.like(email, requestBody);
         return response;
     }
-
 
     @GetMapping(GET_BOARD)
     public ResponseDto<GetBoardResponseDto> getBoard(@PathVariable("boardNumber") int boardNumber) {
@@ -78,6 +90,15 @@ public class BoardController {
     public ResponseDto<List<GetMyListResponseDto>> getMyList(@AuthenticationPrincipal String email) {
         ResponseDto<List<GetMyListResponseDto>> response = boardService.getMyList(email);
         return response;
+    }
+
+    @GetMapping(GET_SEARCH_LIST)
+    public ResponseDto<List<GetSearchListResponseDto>> getSearchList(
+        @PathVariable("searchWord") String searchWord,
+        @PathVariable("previousSearchWord") String previousSearchWord
+    ) {
+        System.out.println(searchWord + " " + previousSearchWord);
+        return null;
     }
 
     @PatchMapping(PATCH_BOARD)

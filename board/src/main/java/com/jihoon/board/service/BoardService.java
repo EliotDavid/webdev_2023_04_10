@@ -9,6 +9,7 @@ import com.jihoon.board.common.constant.ResponseMessage;
 import com.jihoon.board.dto.request.board.LikeDto;
 import com.jihoon.board.dto.request.board.PatchBoardDto;
 import com.jihoon.board.dto.request.board.PostBoardDto;
+import com.jihoon.board.dto.request.board.PostCommentDto;
 import com.jihoon.board.dto.response.ResponseDto;
 import com.jihoon.board.dto.response.board.DeleteBoardResponseDto;
 import com.jihoon.board.dto.response.board.GetBoardResponseDto;
@@ -17,6 +18,7 @@ import com.jihoon.board.dto.response.board.GetMyListResponseDto;
 import com.jihoon.board.dto.response.board.LikeResponseDto;
 import com.jihoon.board.dto.response.board.PatchBoardResponseDto;
 import com.jihoon.board.dto.response.board.PostBoardResponseDto;
+import com.jihoon.board.dto.response.board.PostCommentResponseDto;
 import com.jihoon.board.entity.BoardEntity;
 import com.jihoon.board.entity.CommentEntity;
 import com.jihoon.board.entity.LikyEntity;
@@ -86,6 +88,39 @@ public class BoardService {
             List<LikyEntity> likeList = likyRepository.findByBoardNumber(boardNumber);
 
             data = new LikeResponseDto(boardEntity, commentList, likeList);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+
+    }
+
+    public ResponseDto<PostCommentResponseDto> postComment(String email, PostCommentDto dto) {
+
+        PostCommentResponseDto data = null;
+
+        int boardNumber = dto.getBoardNumber();
+
+        try {
+
+            UserEntity userEntity = userRepository.findByEmail(email);
+            if (userEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_USER);
+
+            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_BOARD);
+
+            CommentEntity commentEntity = new CommentEntity(userEntity, dto);
+            commentRepository.save(commentEntity);
+
+            boardEntity.increaseCommentCount();
+            boardRepository.save(boardEntity);
+
+            List<CommentEntity> commentList = commentRepository.findByBoardNumberOrderByWriteDatetimeDesc(boardNumber);
+            List<LikyEntity> likeList = likyRepository.findByBoardNumber(boardNumber);
+
+            data = new PostCommentResponseDto(boardEntity, commentList, likeList);
 
         } catch (Exception exception) {
             exception.printStackTrace();
