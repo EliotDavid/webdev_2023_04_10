@@ -25,6 +25,7 @@ import com.jihoon.board.dto.response.board.DeleteBoardResponseDto;
 import com.jihoon.board.dto.response.board.GetBoardResponseDto;
 import com.jihoon.board.dto.response.board.GetListResponseDto;
 import com.jihoon.board.dto.response.board.GetMyListResponseDto;
+import com.jihoon.board.dto.response.board.GetSearchListResponseDto;
 import com.jihoon.board.dto.response.board.LikeResponseDto;
 import com.jihoon.board.dto.response.board.PatchBoardResponseDto;
 import com.jihoon.board.dto.response.board.PostBoardResponseDto;
@@ -43,7 +44,8 @@ public class BoardController {
     private final String GET_BOARD = "/{boardNumber}";
     private final String GET_LIST = "/list";
     private final String GET_MY_LIST = "/my-list";
-    private final String GET_SEARCH_LIST = "/search-list/{searchWord}/{previousSearchWord}";
+    private final String GET_SEARCH_LIST = "/search-list/{searchWord}";
+    private final String GET_SEARCH_LIST_PREVIOUS = "/search-list/{searchWord}/{previousSearchWord}";
     private final String PATCH_BOARD = "";
     private final String DELETE_BOARD = "/{boardNumber}";
 
@@ -92,13 +94,13 @@ public class BoardController {
         return response;
     }
 
-    @GetMapping(GET_SEARCH_LIST)
+    @GetMapping(value={GET_SEARCH_LIST, GET_SEARCH_LIST_PREVIOUS})
     public ResponseDto<List<GetSearchListResponseDto>> getSearchList(
         @PathVariable("searchWord") String searchWord,
         @PathVariable("previousSearchWord") String previousSearchWord
     ) {
-        System.out.println(searchWord + " " + previousSearchWord);
-        return null;
+        ResponseDto<List<GetSearchListResponseDto>> response = boardService.getSearchList(searchWord, previousSearchWord);
+        return response;
     }
 
     @PatchMapping(PATCH_BOARD)
