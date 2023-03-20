@@ -118,8 +118,7 @@ public class BoardController {
 
     @GetMapping(GET_TOP15_RELATED_SEARCH_WORD)
     public ResponseDto<GetTop15RelatedSearchWordResponseDto> getTop15RelatedSearchWord(@PathVariable("searchWord") String searchWord) {
-        ResponseDto<GetTop15RelatedSearchWordResponseDto> response = 
-            boardService.getTop15RelatedSearchWord(searchWord);
+        ResponseDto<GetTop15RelatedSearchWordResponseDto> response = boardService.getTop15RelatedSearchWord(searchWord);
         return response;
     }
 
