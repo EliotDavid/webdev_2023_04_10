@@ -26,6 +26,7 @@ import com.jihoon.board.dto.response.board.GetBoardResponseDto;
 import com.jihoon.board.dto.response.board.GetListResponseDto;
 import com.jihoon.board.dto.response.board.GetMyListResponseDto;
 import com.jihoon.board.dto.response.board.GetSearchListResponseDto;
+import com.jihoon.board.dto.response.board.GetTop15RelatedSearchWordResponseDto;
 import com.jihoon.board.dto.response.board.GetTop15SearchWordResponseDto;
 import com.jihoon.board.dto.response.board.LikeResponseDto;
 import com.jihoon.board.dto.response.board.PatchBoardResponseDto;
@@ -49,6 +50,7 @@ public class BoardController {
     private final String GET_SEARCH_LIST = "/search-list/{searchWord}";
     private final String GET_SEARCH_LIST_PREVIOUS = "/search-list/{searchWord}/{previousSearchWord}";
     private final String GET_TOP15_SEARCH_WORD = "/top15-search-word";
+    private final String GET_TOP15_RELATED_SEARCH_WORD = "/top15-related-search-word/{searchWord}";
 
     private final String PATCH_BOARD = "";
     
@@ -111,6 +113,13 @@ public class BoardController {
     @GetMapping(GET_TOP15_SEARCH_WORD)
     public ResponseDto<GetTop15SearchWordResponseDto> getTop15SearchWord() {
         ResponseDto<GetTop15SearchWordResponseDto> response = boardService.getTop15SearchWord();
+        return response;
+    }
+
+    @GetMapping(GET_TOP15_RELATED_SEARCH_WORD)
+    public ResponseDto<GetTop15RelatedSearchWordResponseDto> getTop15RelatedSearchWord(@PathVariable("searchWord") String searchWord) {
+        ResponseDto<GetTop15RelatedSearchWordResponseDto> response = 
+            boardService.getTop15RelatedSearchWord(searchWord);
         return response;
     }
 

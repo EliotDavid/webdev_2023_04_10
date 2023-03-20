@@ -16,6 +16,7 @@ import com.jihoon.board.dto.response.board.GetBoardResponseDto;
 import com.jihoon.board.dto.response.board.GetListResponseDto;
 import com.jihoon.board.dto.response.board.GetMyListResponseDto;
 import com.jihoon.board.dto.response.board.GetSearchListResponseDto;
+import com.jihoon.board.dto.response.board.GetTop15RelatedSearchWordResponseDto;
 import com.jihoon.board.dto.response.board.GetTop15SearchWordResponseDto;
 import com.jihoon.board.dto.response.board.LikeResponseDto;
 import com.jihoon.board.dto.response.board.PatchBoardResponseDto;
@@ -27,6 +28,7 @@ import com.jihoon.board.entity.LikyEntity;
 import com.jihoon.board.entity.RelatedSearchWordEntity;
 import com.jihoon.board.entity.SearchWordLogEntity;
 import com.jihoon.board.entity.UserEntity;
+import com.jihoon.board.entity.resultSet.RelatedSearchWordResultSet;
 import com.jihoon.board.entity.resultSet.SearchWordResultSet;
 import com.jihoon.board.repository.BoardRepository;
 import com.jihoon.board.repository.CommentRepository;
@@ -233,6 +235,23 @@ public class BoardService {
         try {
             List<SearchWordResultSet> searchWordList = searchWordLogRepository.findTop15();
             data = GetTop15SearchWordResponseDto.copyList(searchWordList);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+    }
+
+    public ResponseDto<GetTop15RelatedSearchWordResponseDto> getTop15RelatedSearchWord(String searchWord) {
+        GetTop15RelatedSearchWordResponseDto data = null;
+
+        try {
+
+            List<RelatedSearchWordResultSet> relatedSearchWordList = 
+                relatedSearchWordRepository.findTop15(searchWord);
+            data = GetTop15RelatedSearchWordResponseDto.copyList(relatedSearchWordList);
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
