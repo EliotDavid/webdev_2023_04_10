@@ -1,5 +1,9 @@
 package com.jihoon.board.service;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +24,23 @@ public class MainService {
 
     @Scheduled(cron="2 * * * * ?")
     public void scheduleCronJob() {
-        System.out.println("Cron Job으로 시간 지정 작업 : " + System.currentTimeMillis() / 1000);
+        try {
+            crawlling();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void crawlling() throws Exception {
+
+        Document document = Jsoup.connect("https://naver.com").get();
+
+        Elements elements = document.selectXpath("//*[@id='NM_NEWSSTAND_DEFAULT_THUMB']/div[1]/div[4]/div/div[2]/div[1]");
+        
+        for (Element element: elements) {
+            System.out.println(element.attr("data-pid"));
+        }
+
     }
 
 }
