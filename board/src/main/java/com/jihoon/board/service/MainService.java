@@ -35,10 +35,11 @@ public class MainService {
 
         Document document = Jsoup.connect("https://naver.com").get();
 
-        Elements elements = document.selectXpath("//*[@id='NM_NEWSSTAND_DEFAULT_THUMB']/div[1]/div[4]/div/div[2]/div[1]");
-        
+        Elements elements = document.select("#NM_FAVORITE > div.group_nav > ul.list_nav.NM_FAVORITE_LIST > li > a");
+        System.out.println(elements.size());
+
         for (Element element: elements) {
-            System.out.println(element.attr("data-pid"));
+            System.out.println(element.absUrl("href"));
         }
 
     }
