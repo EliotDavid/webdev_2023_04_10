@@ -16,6 +16,7 @@ import com.jihoon.board.service.AuthService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,7 @@ public class AuthController {
     private final String SIGN_UP = "/sign-up";
     private final String SIGN_IN = "/sign-in";
     
+    @ApiOperation(value="회원가입", notes="이메일, 비밀번호, 닉네임, 전화번호, 주소를 입력하여 회원을 등록하고, 성공 시에는 회원가입 성공 여부에 true가 반환됨")
     @PostMapping(SIGN_UP)
     public ResponseDto<SignUpResponseDto> signUp(@Valid @RequestBody SignUpDto requestBody) {
         ResponseDto<SignUpResponseDto> response = authService.signUp(requestBody);
