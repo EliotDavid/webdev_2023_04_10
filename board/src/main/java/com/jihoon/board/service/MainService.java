@@ -22,14 +22,14 @@ public class MainService {
     //     System.out.println("시작 고정 딜레이 작업 : " + System.currentTimeMillis() / 1000);
     // }
 
-    @Scheduled(cron="2 * * * * ?")
-    public void scheduleCronJob() {
-        try {
-            crawlling();
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-    }
+    // @Scheduled(cron="2 * * * * ?")
+    // public void scheduleCronJob() {
+    //     try {
+    //         crawlling();
+    //     } catch (Exception exception) {
+    //         exception.printStackTrace();
+    //     }
+    // }
 
     public void crawlling() throws Exception {
 
