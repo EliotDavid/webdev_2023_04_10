@@ -2,12 +2,11 @@ package com.jihoon.board.dto.response.auth;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@ApiModel(value="회원가입 결과")
+@ApiModel(value="회원가입 Response Body - data")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
