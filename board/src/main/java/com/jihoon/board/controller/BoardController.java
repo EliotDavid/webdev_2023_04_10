@@ -34,8 +34,11 @@ import com.jihoon.board.dto.response.board.PostBoardResponseDto;
 import com.jihoon.board.dto.response.board.PostCommentResponseDto;
 import com.jihoon.board.service.BoardService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
+@Api(value="게시물 모듈")
 @RestController
 @RequestMapping(ApiPattern.BOARD)
 public class BoardController {
@@ -58,6 +61,7 @@ public class BoardController {
     
     private final String DELETE_BOARD = "/{boardNumber}";
 
+    @ApiOperation(value="게시물 작성", notes="제목, 내용, 이미지를 전송하면 게시물 작성 결과로 작성된 게시물 정보를 반환, 실패시 실패 메시지를 반환")
     @PostMapping(POST_BOARD)
     public ResponseDto<PostBoardResponseDto> postBoard(
         @AuthenticationPrincipal String email,
@@ -67,6 +71,7 @@ public class BoardController {
         return response;
     }
 
+    @ApiOperation(value="댓글 작성", notes="Request Header Athorization에 Bearer JWT를 포함하고 Request Body에 boardNumber, content를 포함하여 요청을 하면, 성공시 게시물 전체 데이터를 반환, 실패시 실패 메세지를 반환")
     @PostMapping(POST_COMMENT)
     public ResponseDto<PostCommentResponseDto> postComment(
         @AuthenticationPrincipal String email,
@@ -76,6 +81,7 @@ public class BoardController {
         return response;
     }
 
+    @ApiOperation(value="좋아요 기능", notes="Request Header Athorization에 Bearer JWT를 포함하고 Request Body에 boardNumber를 포함하여 요청을 하면, 성공시 게시물 전체 데이터를 반환, 실패시 실패 메세지를 반환")
     @PostMapping(LIKE)
     public ResponseDto<LikeResponseDto> like(
         @AuthenticationPrincipal String email, 
