@@ -15,9 +15,7 @@ import com.jihoon.board.dto.response.auth.SignUpResponseDto;
 import com.jihoon.board.service.AuthService;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
