@@ -18,6 +18,7 @@ import com.jihoon.board.dto.response.board.GetMyListResponseDto;
 import com.jihoon.board.dto.response.board.GetSearchListResponseDto;
 import com.jihoon.board.dto.response.board.GetTop15RelatedSearchWordResponseDto;
 import com.jihoon.board.dto.response.board.GetTop15SearchWordResponseDto;
+import com.jihoon.board.dto.response.board.GetTop3ListResponseDto;
 import com.jihoon.board.dto.response.board.LikeResponseDto;
 import com.jihoon.board.dto.response.board.PatchBoardResponseDto;
 import com.jihoon.board.dto.response.board.PostBoardResponseDto;
@@ -306,6 +307,23 @@ public class BoardServiceImplements implements BoardService {
 
             boardRepository.delete(boardEntity);
             data = new DeleteBoardResponseDto(true);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
+
+    }
+
+    public ResponseDto<List<GetTop3ListResponseDto>> getTop3List() {
+        
+        List<GetTop3ListResponseDto> data = null;
+
+        try {
+            List<BoardEntity> boardList = boardRepository.findTop3ByOrderByLikeCountDesc();
+            data = GetTop3ListResponseDto.copyList(boardList);
 
         } catch (Exception exception) {
             exception.printStackTrace();

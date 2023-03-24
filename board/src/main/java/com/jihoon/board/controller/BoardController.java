@@ -55,6 +55,7 @@ public class BoardController {
     private final String GET_MY_LIST = "/my-list";
     private final String GET_SEARCH_LIST = "/search-list/{searchWord}";
     private final String GET_SEARCH_LIST_PREVIOUS = "/search-list/{searchWord}/{previousSearchWord}";
+    private final String GET_TOP3_LIST = "/top3-list";
     private final String GET_TOP15_SEARCH_WORD = "/top15-search-word";
     private final String GET_TOP15_RELATED_SEARCH_WORD = "/top15-related-search-word/{searchWord}";
 
@@ -134,8 +135,8 @@ public class BoardController {
         return response;
     }
 
-    @ApiOperation(value="")
-    @GetMapping()
+    @ApiOperation(value="좋아요 기준 상위 3개 게시물 리스트 가져오기", notes="요청을 하면, 좋아요 수 기준으로 상위 3개 게시물 리스트를 반환, 실패시 실패 메세지를 반환")
+    @GetMapping(GET_TOP3_LIST)
     public ResponseDto<List<GetTop3ListResponseDto>> getTop3List() {
         ResponseDto<List<GetTop3ListResponseDto>> response = boardService.getTop3List();
         return response;
