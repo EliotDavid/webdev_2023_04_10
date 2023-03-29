@@ -11,13 +11,14 @@ import { usePagingHook } from 'src/hooks';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
 import { GetListResponseDto } from 'src/apis/response/board';
+import { GET_LIST_URL } from 'src/constants/api';
 
 export default function MainContents() {
 
   const { viewList, pageNumber, boardList, setBoardList, onPageHandler, COUNT } = usePagingHook(5);
 
   const getList = () => {
-    axios.get()
+    axios.get(GET_LIST_URL)
       .then((response) => getListResponseHandler(response))
       .catch((error) => getListErrorHandler(error));
   }
@@ -45,7 +46,7 @@ export default function MainContents() {
         <Grid container spacing={3}>
           <Grid item sm={12} md={8}>
             <Stack spacing={2}>
-              {viewList.map((boardItem) => (<BoardListItem item={boardItem as IPreviewItem} />))}
+              {viewList.map((boardItem) => (<BoardListItem item={boardItem as GetListResponseDto} />))}
             </Stack>
           </Grid>
           <Grid item sm={12} md={4}>
