@@ -15,6 +15,9 @@ import BoardDetailView from './views/Board/BoardDetailView';
 import { useCookies } from 'react-cookie';
 import { useUserStore } from './stores';
 import axios, { AxiosResponse } from 'axios';
+import ResponseDto from './apis/response';
+import { authorizationHeader, GET_USER_URL } from './constants/api';
+import { GetUserResponseDto } from './apis/response/user';
 
 //# Router 설계 
 //? 1. 'main' path 작성 : '/'
@@ -31,23 +34,28 @@ function App() {
   const { setUser } = useUserStore();
   const [ cookies ] = useCookies();
 
-  const getUser = () => {
-    axios.post()
+  const getUser = (accessToken: string) => {
+    axios.get(GET_USER_URL, authorizationHeader(accessToken))
       .then((response) => getUserResponseHandler(response))
       .catch((error) => getUserErrorHandler(error));
   }
 
   const getUserResponseHandler = (response: AxiosResponse<any, any>) => {
-
+    const { result, message, data } = response.data as ResponseDto<any>;
+    if (!result || !data) {
+      return;
+    }
+    const user = data as GetUserResponseDto;
+    setUser(user);
   }
 
   const getUserErrorHandler = (error: any) => {
-
+    console.log(error.message);
   }
 
   useEffect(() => {
     const accessToken = cookies.accessToken;
-    if (accessToken) getUser();
+    if (accessToken) getUser(accessToken);
   }, []);
 
   return (
