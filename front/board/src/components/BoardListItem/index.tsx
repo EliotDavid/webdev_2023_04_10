@@ -1,10 +1,10 @@
 import { Avatar, Box, Card, CardActionArea, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { GetListResponseDto } from "src/apis/response/board";
+import { GetListResponseDto, GetSearchListResponseDto } from "src/apis/response/board";
 import { IPreviewItem } from "src/interfaces";
 
 interface Props {
-  item: GetListResponseDto;
+  item: GetListResponseDto | GetSearchListResponseDto;
 }
 
 export default function BoardListItem({ item }: Props) {
@@ -17,7 +17,7 @@ export default function BoardListItem({ item }: Props) {
         <Box>
           <Box sx={{ display: "flex" }}>
             <Box sx={{ mr: "8px" }}>
-              <Avatar alt={item.writerNickname} src={item.writerProfileUrl} />
+              <Avatar alt={item.writerNickname} src={item.writerProfileUrl ? item.writerProfileUrl : ''} />
             </Box>
             <Box>
               <Typography
