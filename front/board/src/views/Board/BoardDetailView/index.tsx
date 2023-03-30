@@ -16,9 +16,8 @@ import CommentListItem from 'src/components/CommentListItem';
 import LikeListItem from 'src/components/LikeListItem';
 import { usePagingHook } from 'src/hooks';
 import { useUserStore } from 'src/stores';
-import { Board, Comment, ICommentItem, ILikeUser, IPreviewItem, Liky } from 'src/interfaces';
+import { Board, Comment, Liky } from 'src/interfaces';
 import { getPageCount } from 'src/utils';
-import { BOARD_LIST, COMMENT_LIST, LIKE_LIST } from 'src/mock';
 import axios, { AxiosResponse } from 'axios';
 import ResponseDto from 'src/apis/response';
 import { GetBoardResponseDto } from 'src/apis/response/board';
@@ -39,11 +38,12 @@ export default function BoardDetailView() {
     const [openComment, setOpenComment] = useState<boolean>(false);
 
     const { boardList, setBoardList, viewList, COUNT, pageNumber, onPageHandler } = usePagingHook(3);
-
     const { boardNumber } = useParams();
+    const { user } = useUserStore();
+
     const navigator = useNavigate();
 
-    const { user } = useUserStore();
+    let isLoad = false;
 
     const getBoard = () => {
         axios.get(GET_BOARD_URL(boardNumber as string))
@@ -82,13 +82,14 @@ export default function BoardDetailView() {
     }
 
     useEffect(() => {
-        //? boardNumber가 존재하는지 검증
+        if (isLoad) return;
         if (!boardNumber) {
             navigator('/');
             return;
         }
+        isLoad = true;
         getBoard();
-    }, [])
+    }, []);
 
   return (
     <Box sx={{ p: '100px 222px' }}>
