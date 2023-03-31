@@ -298,12 +298,14 @@ public class BoardServiceImplements implements BoardService {
         DeleteBoardResponseDto data = null;
 
         try {
-
             BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
             if (boardEntity == null) return ResponseDto.setFailed(ResponseMessage.NOT_EXIST_BOARD);
 
             boolean isEqualWriter = email.equals(boardEntity.getWriterEmail());
             if (!isEqualWriter) return ResponseDto.setFailed(ResponseMessage.NOT_PERMISSION);
+
+            commentRepository.deleteByBoardNumber(boardNumber);
+            likyRepository.deleteByBoardNumber(boardNumber);
 
             boardRepository.delete(boardEntity);
             data = new DeleteBoardResponseDto(true);
