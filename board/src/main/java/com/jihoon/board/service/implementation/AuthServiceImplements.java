@@ -33,7 +33,6 @@ public class AuthServiceImplements implements AuthService {
         String password = dto.getPassword();
 
         try {
-
             boolean hasEmail = userRepository.existsByEmail(email);
             if (hasEmail) return ResponseDto.setFailed(ResponseMessage.EXIST_EMAIL);
 
