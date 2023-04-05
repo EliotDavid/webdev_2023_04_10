@@ -20,6 +20,8 @@ export default function SearchView() {
     
     const [popularList, setPopularList] = useState<string[]>([]);
 
+    let loadFlag = true;
+
     //          Event Handler          //
     const getSearchList = () => {
         axios.get(GET_SEARCH_LIST_URL(content as string))
@@ -57,8 +59,11 @@ export default function SearchView() {
 
     //          Use Effect          //
     useEffect(() => {
-        getSearchList();
-        getTop15RelatedSearchWord();
+        if (loadFlag) {
+            loadFlag = false;
+            getSearchList();
+            getTop15RelatedSearchWord();
+        }
     }, [content]);
 
   return (
