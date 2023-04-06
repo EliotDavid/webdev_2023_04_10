@@ -24,8 +24,8 @@ import { useSignUpStore } from 'src/stores';
 import { SignUpDto } from "src/apis/request/auth";
 import ResponseDto from "src/apis/response";
 import { SignUpResponseDto } from "src/apis/response/auth";
-import { SIGN_UP_URL, VALIDATE_EMAIL_URL } from "src/constants/api";
-import { ValidateEmailDto } from "src/apis/request/user";
+import { SIGN_UP_URL, VALIDATE_EMAIL_URL, VALIDATE_TEL_NUMBER_URL } from "src/constants/api";
+import { ValidateEmailDto, ValidateTelNumberDto } from "src/apis/request/user";
 import { ValidateEmailResponseDto } from "src/apis/response/user";
 
 //          Component          //
@@ -59,6 +59,7 @@ function FirstPage({ signUpError }: FirstPageProps) {
   }
 
   const onEmailValidateButtonHanlder = () => {
+    if (emailMessage) return;
     const data: ValidateEmailDto = { email }; 
 
     axios.post(VALIDATE_EMAIL_URL, data)
@@ -176,6 +177,19 @@ function SecondPage({ signUpError }: SecondPageProps) {
     else setTelNumberMessage('숫자만 입력해주세요.');
     setTelNumber(value);
   }
+
+  const onTelNumberValidateHandler = () => {
+    if (telNumberMessage) return;
+    const data: ValidateTelNumberDto = { telNumber };
+    
+    axios.post(VALIDATE_TEL_NUMBER_URL, data)
+      .then((response) => validateTelNumberResponseHandler(response))
+      .catch((error) => validateTelNumberErrorHandler(error));
+  }
+
+  //          Response Handler          //
+
+  //          Error Handler          //
 
   return (
     <Box>
