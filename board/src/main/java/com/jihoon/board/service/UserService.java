@@ -8,4 +8,7 @@ import com.jihoon.board.dto.response.user.PatchProfileResponseDto;
 public interface UserService {
     public ResponseDto<PatchProfileResponseDto> patchProfile(String email, PatchProfileDto dto);
     public ResponseDto<GetUserResponseDto> getUser(String email);
+    public ResponseDto<?> validateEmail(ValidateEmailDto dto);
+    public ResponseDto<?> validateNickname(ValidateNicknameDto dto);
+    public ResponseDto<?> validateTelNumber(ValidateTelNumberDto dto);
 }
