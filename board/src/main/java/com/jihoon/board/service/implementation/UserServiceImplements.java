@@ -65,13 +65,35 @@ public class UserServiceImplements implements UserService {
     }
 
     public ResponseDto<ValidateNicknameResponseDto> validateNickname(ValidateNicknameDto dto) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'validateNickname'");
+        ValidateNicknameResponseDto data = null;
+
+        String nickname = dto.getNickname();
+
+        try {
+            boolean hasNickname = userRepository.existsByNickname(nickname);
+            data = new ValidateNicknameResponseDto(hasNickname);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
     }
 
     public ResponseDto<ValidateTelNumberResponseDto> validateTelNumber(ValidateTelNumberDto dto) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'validateTelNumber'");
+        ValidateTelNumberResponseDto data = null;
+
+        String telNumber = dto.getTelNumber();
+
+        try {
+            boolean hasTelNumber = userRepository.existsByTelNumber(telNumber);
+            data = new ValidateTelNumberResponseDto(hasTelNumber);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.setFailed(ResponseMessage.DATABASE_ERROR);
+        }
+
+        return ResponseDto.setSuccess(ResponseMessage.SUCCESS, data);
     }
 
     public ResponseDto<GetUserResponseDto> getUser(String email) {
