@@ -16,13 +16,17 @@ import {
 } from "@mui/material";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
+import CheckIcon from '@mui/icons-material/Check';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+
 
 import { useSignUpStore } from 'src/stores';
 import { SignUpDto } from "src/apis/request/auth";
 import ResponseDto from "src/apis/response";
 import { SignUpResponseDto } from "src/apis/response/auth";
-import { SIGN_UP_URL } from "src/constants/api";
+import { SIGN_UP_URL, VALIDATE_EMAIL_URL } from "src/constants/api";
+import { ValidateEmailDto } from "src/apis/request/user";
+import { ValidateEmailResponseDto } from "src/apis/response/user";
 
 //          Component          //
 interface FirstPageProps {
@@ -35,6 +39,7 @@ function FirstPage({ signUpError }: FirstPageProps) {
   const { email, password, passwordCheck } = useSignUpStore();
   const { setEmail, setPassword, setPasswordCheck } = useSignUpStore();
 
+  const [emailValidateMessage, setEmailValidateMessage] = useState<string>('');
   const [emailMessage, setEmailMessage] = useState<string>('');
   const [passwordMessage, setPasswordMessage] = useState<string>('');
   const [passwordCheckMessage, setPasswordCheckMessage] = useState<string>('');
@@ -53,6 +58,14 @@ function FirstPage({ signUpError }: FirstPageProps) {
     setEmail(value);
   }
 
+  const onEmailValidateButtonHanlder = () => {
+    const data: ValidateEmailDto = { email }; 
+
+    axios.post(VALIDATE_EMAIL_URL, data)
+      .then((response) => validateEmailResponseHanlder(response))
+      .catch((error) => validateEmailErrorHanlder(error));
+  }
+
   const onPasswordChangeHandler = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const value = event.target.value;
     const isMatched = passwordValidator.test(value);
@@ -68,19 +81,39 @@ function FirstPage({ signUpError }: FirstPageProps) {
     else setPasswordCheckMessage('비밀번호가 서로 일치하지 않습니다.');
     setPasswordCheck(value);
   }
+  
+  //          Response Handler          //
+  const validateEmailResponseHanlder = (response: AxiosResponse<any, any>) => {
+    const { result, message, data } = response.data as ResponseDto<ValidateEmailResponseDto>;
+    if (!result || !data) {
+      alert(message);
+      return;
+    }
+    const validateMessage = data.result ? '' : '중복되는 이메일입니다.';
+    setEmailValidateMessage(validateMessage);
+  }
+
+  //          Error Handler          //
+  const validateEmailErrorHanlder = (error: any) => {
+    console.log(error.message);
+  }
 
   return (
     <Box>
-      <TextField
-        sx={{ mt: "40px" }}
-        error={signUpError}
-        fullWidth
-        label="이메일 주소*"
-        variant="standard"
+      <FormControl sx={{mt: '40px'}} error={signUpError} fullWidth variant="standard">
+        <InputLabel>이메일 주소*</InputLabel>
+        <Input type="text" endAdornment={
+          <InputAdornment position="end">
+            <IconButton onClick={() => onEmailValidateButtonHanlder()}>
+              <CheckIcon />
+            </IconButton>
+          </InputAdornment>
+        } 
         value={email}
-        helperText={emailMessage}
         onChange={(event) => onEmailChangeHandler(event)}
-      />
+        />
+        <FormHelperText sx={{ color: 'red' }}>{emailMessage} {emailValidateMessage}</FormHelperText>
+      </FormControl>
       <FormControl sx={{ mt: "40px" }} error={signUpError} fullWidth variant="standard">
         <InputLabel>비밀번호*</InputLabel>
         <Input
